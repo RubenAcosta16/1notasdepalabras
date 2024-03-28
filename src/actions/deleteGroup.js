@@ -13,7 +13,7 @@ export const deleteGroup = async (verbsIds) => {
     // console.log(data,status)
     return data;
   };
-    
+     
 
 // con reactQuery
 

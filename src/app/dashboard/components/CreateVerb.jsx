@@ -1,9 +1,14 @@
 "use client";
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
+import clsx from "clsx"; 
+
+import { Textarea, Input, Button } from "@nextui-org/react";
+import { CiImageOn } from "react-icons/ci";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
@@ -18,20 +23,19 @@ const CreateVerb = () => {
 
   const { mutate, error, isLoading, isSuccess } = createVerb(currentType);
 
-  const refName = useRef(null);
-  const refDescription = useRef(null);
-  const refGroup = useRef(null);
+  // const refName = useRef(null);
+  // const refDescription = useRef(null);
+  // const refGroup = useRef(null);
 
   const [keepGroup, setKeepGroup] = useState(false);
 
   const [sendImg, setSendImg] = useState(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [group, setGroup] = useState("");
+
+  // const [isLoading, setisLoading] = useState(initialState)
 
   // para las imagenes
   const onDrop = useCallback((acceptedFiles) => {
@@ -43,7 +47,8 @@ const CreateVerb = () => {
     useDropzone({ onDrop });
   //
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     if (!currentUser) {
       console.error("usuario no encontrado");
       return;
@@ -69,12 +74,12 @@ const CreateVerb = () => {
       mutate(
         {
           id: uuidv4(),
-          name: data.name,
+          name: name,
           userId: currentUser.id,
           img: formData,
-          description: data.description,
+          description: description,
           type: currentType,
-          group: data.group,
+          group: group,
           validationImg: !sendImg,
         },
         {
@@ -82,17 +87,13 @@ const CreateVerb = () => {
             // setTitle("");
             // setBody("");
             if (keepGroup) {
-              reset({
-                name: "", // Vaciar el valor del input 'name'
-                description: "", // Vaciar el valor del input 'description'
-                // group: "", // Vaciar el valor del input 'group'
-              });
+              setName("");
+              setDescription("");
+              // setGroup("")
             } else {
-              reset({
-                name: "", // Vaciar el valor del input 'name'
-                description: "", // Vaciar el valor del input 'description'
-                group: "", // Vaciar el valor del input 'group'
-              });
+              setName("");
+              setDescription("");
+              setGroup("");
             }
 
             console.warn("verbo creado");
@@ -102,88 +103,159 @@ const CreateVerb = () => {
           },
         }
       );
-    }else{
-      console.error("Necesitas tener un tipo para crear un verbo")
+    } else {
+      console.error("Necesitas tener un tipo para crear un verbo");
     }
-  });
+  };
 
   // console.log(errors.name?.message)
 
   return (
-    <div>
-      <form action="" onSubmit={onSubmit}>
-        <label htmlFor="">Verbo:</label>
-        <input
-          name="name"
-          type="text"
-          // value={username}
-          //   onChange={(event) => setUsername(event.target.value)}
-          {...register("name", {
-            required: "Este campo es requerido",
-          })}
+    <form
+      action=""
+      onSubmit={onSubmit}
+      className="mt-[70px] relative flex flex-col items-center w-full px-5 gap-[15px] rounded-tl-[50px] p-10"
+      style={{boxShadow:"0 5px 15px rgba(0, 0, 0, 0.7)"}}
+    >
+      <h1 className="mb-[5px] text-[20px] font-semibold text-black">Crea una palabra</h1>
+
+      <Input
+        type="text"
+        variant="underlined"
+        label="Nombre"
+        name="name"
+        value={name}
+        onChange={(e) => {
+          setName(e.target.value);
+        }}
+      />
+
+      <Textarea
+        variant="underlined"
+        label="Descripción"
+        // placeholder="Enter your description"
+        className="max-w-xs"
+        minRows={3}
+        value={description}
+        onChange={(e) => {
+          setDescription(e.target.value);
+        }}
+      />
+
+      <div className="relative w-full">
+        {" "}
+        <Textarea
+          variant="underlined"
+          label="Grupo"
+          // placeholder="Enter your description"
+          className="max-w-xs"
+          minRows={3}
+          value={group}
+          onChange={(e) => {
+            setGroup(e.target.value);
+          }}
         />
-        {errors.name && <div>{errors.name.message}</div>}
-
-        <label htmlFor="">Descripcion:</label>
-        <textarea
-          id=""
-          cols="30"
-          rows="10"
-          type="text"
-          name="description"
-          // value={username}
-          //   onChange={(event) => setUsername(event.target.value)}
-          {...register("description", {
-            required: "Este campo es requerido",
-          })}
-        ></textarea>
-        {errors.description && <div>{errors.description.message}</div>}
-
-        <label htmlFor="">Grupo:</label>
-        <textarea
-          name="group"
-          id=""
-          cols="30"
-          rows="10"
-          type="text"
-          // value={username}
-          //   onChange={(event) => setUsername(event.target.value)}
-          {...register("group", {
-            // required: true,
-          })}
-        ></textarea>
-
-        <button type="button" onClick={() => setKeepGroup(!keepGroup)}>
+        <Button
+          className="mt-[10px] absolute top-[-10px] right-0 z-10"
+          type="button"
+          color="warning"
+          size="sm"
+          variant={keepGroup ? "solid" : "ghost"}
+          // endContent={""}
+          onClick={() => setKeepGroup(!keepGroup)}
+        >
           {keepGroup ? "No mantener grupo" : "Mantener grupo"}
-        </button>
+        </Button>
+      </div>
 
-        {/* para las imagenes */}
-        <div {...getRootProps()} className="bg-slate-300 p-5">
-          <input {...getInputProps()} />
-          {isDragActive ? (
-            <p>Drop the files here ...</p>
-          ) : (
-            <p>Drag 'n' drop some files here, or click to select files</p>
-          )}
-        </div>
-        {/* {acceptedFiles.length !== 0 && "Solo se puede enviar 1 archivo"} */}
+      {/* <button
+        type="button"
+        // color="danger"
+        // variant="ghost"
+        // className="border-2 border-cyan-600"
+        className={clsx(
+          `border-2 border-rose-500  text-[14px] font-medium py-2 px-7 rounded-2xl hover:bg-rose-400`,
+          {
+            "bg-rose-500 text-white": keepGroup === true,
+            "bg-rose-200 text-black": keepGroup === false,
+          }
+        )}
+        // endContent={""}
+        onClick={() => setKeepGroup(!keepGroup)}
+      >
+        {keepGroup ? "No mantener grupo" : "Mantener grupo"}
+      </button> */}
 
-        {sendImg && (
+      {/* <Button color="primary" isLoading>
+        Loading
+      </Button> */}
+
+      {/* para las imagenes */}
+      {/* para pc */}
+      {/* <div {...getRootProps()} className="bg-slate-200 rounded-2xl p-5 flex flex-col justify-center items-center rounded-2xl border-2 border-dashed border-black cursor-pointer">
+        <input {...getInputProps()} />
+        <CiImageOn className="text-[150px]"></CiImageOn>
+        {isDragActive ? (
+          <p className="text-[14px]">Drop the files here ...</p>
+        ) : (
+          <p className="text-[14px]">Drag 'n' drop some files here, or click to select files</p>
+        )}
+      </div> */}
+      {/* {acceptedFiles.length !== 0 && "Solo se puede enviar 1 archivo"} */}
+
+      {/* para mobile */}
+      <Button
+      color="success"
+        type="button"
+        {...getRootProps()}
+        className=""
+      >
+        <input {...getInputProps()} />
+        <p className="text-[14px] text-white">
+          Añadir archivos <CiImageOn className="text-[20px] inline"></CiImageOn>
+        </p>
+      </Button>
+
+      {sendImg && (
+        <div className="flex flex-col">
+          {" "}
           <Image
             src={URL.createObjectURL(sendImg)}
             alt="Image preview"
             width={500}
-            height={300}
+            height={500}
+            className="w-full object-cover h-[170px] rounded-t-lg"
           />
-        )}
+          {/* <Button
+            color="danger"
+            variant="solid"
+            type="button"
+            onClick={() => setSendImg(null)}
+          >
+            Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
+          </Button> */}
+          <Button
+          color="danger"
+            className=" font-medium py-2 flex-grow rounded-b-lg rounded-t-none text-[14px] text-white"
+            type="button"
+            onClick={() => setSendImg(null)}
+          >
+            {" "}
+            Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
+          </Button>
+        </div>
+      )}
 
-        <button type="button" onClick={() => setSendImg(null)}>
-          Limpiar imagenes
-        </button>
-
-        <button>{isLoading ? "Loading..." : "Enviar"}</button>
-      </form>
-    </div>
+      <Button
+        type="submit"
+        color="primary"
+        variant="solid"
+        isLoading={isLoading}
+        className="w-[85%]"
+      >
+        Enviar
+      </Button>
+    </form>
   );
 };
 

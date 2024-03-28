@@ -7,7 +7,7 @@ import axios from "axios";
 // };
 export const postType = async (type) => {
   // console.log(type)
-  const { id, name, userId, img, description, hasGroup, validationImg } = type;
+  const { id, name, userId, img, description, hasGroup, validationImg,hasImg } = type;
   // console.log({
   //   id,
   //   name,
@@ -25,6 +25,7 @@ export const postType = async (type) => {
     img: "",
     description,
     hasGroup,
+    hasImg
   });
   
   if (validationImg) {
@@ -52,7 +53,7 @@ export const postType = async (type) => {
 
 // con reactQuery
 
-const createType = () => {
+const CreateType = () => {
   const queryClient = useQueryClient();
 
   //esta cosa ya la exporta
@@ -72,4 +73,4 @@ const createType = () => {
   });
 };
 
-export default createType;
+export default CreateType;

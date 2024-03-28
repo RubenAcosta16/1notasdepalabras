@@ -1,0 +1,11 @@
+.bg-pattern{
+    background: linear-gradient(135deg, #002168 25%, transparent 25%) , linear-gradient(45deg, #002168 25%, transparent 25%) ,linear-gradient(135deg, transparent 24%,#302c7b 25%, #302c7b 30%, transparent 31%, transparent 39%,#302c7b 40%, #302c7b 45%, transparent 45%),linear-gradient(45deg, transparent 24%,#302c7b 25%, #302c7b 30%, transparent 31%, transparent 39%,#302c7b 40%, #302c7b 45%, transparent 45%);
+    background-size: 2em 2em;
+    background-color: #002168;
+    /* color: rgb(241 245 249); */
+    opacity: 1
+}
+
+.svg-blue #document svg g path{
+    fill: red;
+}

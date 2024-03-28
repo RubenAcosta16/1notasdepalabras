@@ -2,71 +2,95 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import {signIn, signOut, useSession} from 'next-auth/react'
+import { signIn, signOut, useSession } from "next-auth/react";
+
+import { Input } from "@nextui-org/react";
+// import { useRef, useState } from "react";
+
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const page = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm();
 
   const router = useRouter();
 
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const [isVisible, setIsVisible] = useState(false);
+  const toggleVisibility = () => setIsVisible(!isVisible);
+
   const [matchPassword, setMatchPassword] = useState(true);
 
-  const onSubmit = handleSubmit(async (data) => {
-    if (data.password !== data.confirmPassword) {
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    // if (password.length >= 8) {
+    //   console.log(res.error);
+    //   return;
+    // }
+
+    if (password !== passwordConfirm) {
       // return alert("Passwords do not match");
-          setMatchPassword(false);
-          return
-    } 
+      setMatchPassword(false);
+      return;
+    }
     // setMatchPassword(true);
 
     // const hashedPassword=await bcrypt.hash(data.password,10)
     const res = await fetch("/api/auth/register", {
       method: "POST",
       body: JSON.stringify({
-        username: data.username,
-        email: data.email,
+        username: username,
+        email: email,
         // password: hashedPassword,
-        password: data.password,
+        password: password,
       }),
       headers: {
         "Content-Type": "application/json",
       },
     });
     const resJSON = await res.json();
-    if(!resJSON.ok){
+    if (!resJSON.ok) {
       console.error(resJSON.message);
     }
-    
+
     // console.log(resJSON.ok);
     // console.log("se supone que no imprime")
 
     // una vez logeado signin
 
-    if(resJSON.ok !== false){
-      const resSignIn=await signIn("credentials",{
-        email:data.email,
-        password:data.password,
-        redirect:false
-      })
+    if (resJSON.ok !== false) {
+      const resSignIn = await signIn("credentials", {
+        email: email,
+        password: password,
+        redirect: false,
+      });
       // console.log(resSignIn)
-  
-      if(resSignIn.error){
-        console.log(res.error)
-      }else{
-        router.push("/dashboard")
+
+      if (resSignIn.error) {
+        console.log(res.error);
+      } else {
+        router.push("/home");
       }
     }
-  });
+  }
 
   return (
-    <div className="border border-solid border-red-500 border-2">
-      <form action="" onSubmit={onSubmit}>
-        <br />
-        <label htmlFor="">Username</label>
+    <form
+      action=""
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-[10px]"
+    >
+      <p className="text-[20px] font-semibold">Let´s get started</p>
+
+      {/* <label htmlFor="">Username</label>
         <input
           type="text"
           {...register("username", {
@@ -75,20 +99,40 @@ const page = () => {
               message: "Este campo es requerido",
             },
           })}
-        />
- 
-        {errors.username && <span>{errors.username.message}</span>}
+        /> */}
+      <Input
+        type="text"
+        variant="underlined"
+        label="Username"
+        name="username"
+        value={username}
+        onChange={(e) => {
+          setUsername(e.target.value);
+        }}
+      />
 
-        <br />
+      {/* {errors.username && <span>{errors.username.message}</span>} */}
+
+      {/* <br />
         <label htmlFor="">Email</label>
         <input
           type="email"
           {...register("email", {
             required: true,
           })}
-        />
+        /> */}
+      <Input
+        type="email"
+        variant="underlined"
+        label="Email"
+        name="email"
+        value={email}
+        onChange={(e) => {
+          setEmail(e.target.value);
+        }}
+      />
 
-        {errors.email && <span>{errors.email.message}</span>}
+      {/* {errors.email && <span>{errors.email.message}</span>}
 
         <br />
         <label htmlFor="">Password</label>
@@ -97,23 +141,64 @@ const page = () => {
           {...register("password", {
             required: true,
           })}
-        />
+        /> */}
+      <Input
+        // type="password"
+        variant="underlined"
+        label="Password"
+        name="password"
+        value={password}
+        onChange={(e) => {
+          setPassword(e.target.value);
+        }}
+        endContent={
+          <button
+            className="focus:outline-none"
+            type="button"
+            onClick={toggleVisibility}
+          >
+            {isVisible ? (
+              <FaRegEyeSlash className="text-xl text-default-400 pointer-events-none" />
+            ) : (
+              <FaRegEye className="text-xl text-default-400 pointer-events-none" />
+            )}
+          </button>
+        }
+        type={isVisible ? "text" : "password"}
+        className="max-w-xs"
+      />
 
-        {errors.password && <span>{errors.password.message}</span>}
+      {/* {errors.password && <span>{errors.password.message}</span>} */}
 
-        <br />
+      {/* <br />
         <label htmlFor="">ConfirmPassword</label>
         <input
           type="confirmPassword"
           {...register("confirmPassword", {
             required: true,
           })}
-        />
-        {!matchPassword && <span>Las contraseñas deben ser iguales</span>}
+        /> */}
+      <Input
+        type="password"
+        variant="underlined"
+        label="Confirm Password"
+        name="password"
+        value={passwordConfirm}
+        onChange={(e) => {
+          setPasswordConfirm(e.target.value);
+        }}
+      />
 
-        <button>Registrar</button>
-      </form>
-    </div>
+      {!matchPassword && <span>Las contraseñas deben ser iguales</span>}
+
+      {/* que sea azulito */}
+      <button
+        type="submit"
+        className="text-white text-[16px] mt-[30px] font-normal flex-grow rounded-full text-center py-2 mx-5 bg-pink-600 hover:bg-pink-500"
+      >
+        Register
+      </button>
+    </form>
   );
 };
 

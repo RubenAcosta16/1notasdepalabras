@@ -1,6 +1,10 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
+import clsx from "clsx";
+
+import { Noto_Sans_Cham, Quicksand } from "next/font/google";
+import { Button, Skeleton } from "@nextui-org/react";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
@@ -8,12 +12,26 @@ import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 import CreateVerb from "./components/CreateVerb";
 import CreateType from "./components/CreateType";
 import EditAll from "./components/EditAll";
+import ListVerbs from "./components/ListVerbs";
+import ListTypes from "./components/ListTypes";
+import NavbarState from "./components/NavbarState";
+
+import { PanelEditDash } from "@/app/components/PanelEditDash";
 // import NavbarTypes from './components/NavbarTypes'
 
 // import useTypes from "@/hooks/useTypes";
 
+const noto_Sans_Cham = Noto_Sans_Cham({
+  subsets: ["latin"],
+  weight: ["300", "500", "700", "900"],
+});
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
 const page = () => {
-  const { currentType, setCurrentType } = useCurrentTypeState()
+  const { currentType, setCurrentType } = useCurrentTypeState();
   /**
    * seran 3 paginas
    * crear verbo
@@ -22,50 +40,111 @@ const page = () => {
    * ademas de una para cambiar entre tipos y con un buscador
    */
 
-  // const {
-  //   types,
-  //   error,
-  //   isLoading,
-  //   //  isError,
-  //   //  isSuccess,
-  //   status, //es como una mezcla de las 2 de arriba
-  //   isFetching,
-  //   //esto es para saber si esta desabilitado
-  //   isIdle,
-  //   //esto es para que cargue de nuevo
-  //   refetch,
-  // }=useTypes()
+  const [navbarState, setNavbarState] = useState("createVerb");
+  const [navbarTypes, setNavbarTypes] = useState(false);
+
+  const [loadingDisableButton, setLoadingDisableButton] = useState(true);
 
   const { currentUser, status } = useCurrentUser();
-  // console.log(currentUser)
-  // const [currentType, setCurrentType] = useCurrentTypeState("")
-  // const { currentType, setCurrentType } = useCurrentTypeState()
 
-  if (!status == "authenticated") {
-    return <div>loading...</div>;
-  }
+  // if (status == "authenticated" && currentUser.id) {
+  //   setLoadingDisableButton(false);
+  // }
 
-  if (!currentUser) {
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
+  // console.log(navbarTypes);
 
   return (
-    <div>
+    <div
+      className={`${quicksand.className} relative flex flex-col justify-center items-center pb-[35px]`}
+    >
       {/* crear verbos */}
-      <p>currentType:{currentType}</p>
 
-      <CreateVerb></CreateVerb>
+      <div
+        className={`mt-[30px] w-[90%] mx-auto bg-zinc-800 text-white flex flex-row py-5 rounded-2xl`}
+      >
+        <div className="overflow-hidden flex flex-col justify-center items-center flex-grow">
+          <p className="text-[13px] font-normal">Tipo actual:</p>
+          <p className="mt-[4px] text-yellow-300 text-[16px] font-medium line-clamp-1 hover:line-clamp-none w-[80px]">
+            {currentType !== "" ? (
+              <>{currentType}</>
+            ) : (
+              <Skeleton className={"h-[16px] w-[50px] rounded-xl"}></Skeleton>
+            )}
+          </p>
 
-      <CreateType></CreateType>
+          <Button
+            className="mt-[13px] bg-zinc-950 rounded-full text-[14px] font-semibold text-white"
+            onClick={() => setNavbarState("createVerb")}
+          >
+            Crear
+          </Button>
+        </div>
 
-      <EditAll userId={currentUser.id}></EditAll>
+        <div className="overflow-hidden flex flex-col justify-center items-center flex-grow">
+          <p className="text-[13px] font-normal">Palabras</p>
+          <p className="mt-[4px] text-[15px] font-medium">
+            {" "}
+            {currentType !== "" ? (
+              <>14</>
+            ) : (
+              <Skeleton className={"h-[16px] w-[50px] rounded-xl"}></Skeleton>
+            )}
+          </p>
+
+          <Button
+            className="mt-[13px] py-2 px-8 bg-zinc-950 rounded-full text-[14px] font-semibold text-white"
+            onClick={() => console.log("esto debe editar este tipo")}
+          >
+            Editar
+          </Button>
+        </div>
+      </div>
+
+      {/* poner cuadro negro como el dash de pinterest */}
+      {navbarState == "createVerb" && <CreateVerb></CreateVerb>}
+
+      {(status == "authenticated" && currentUser.id) && (
+        <>
+          {navbarState == "editVerbs" && (
+            <ListVerbs userId={currentUser.id}  setNavbarState={setNavbarState}></ListVerbs>
+          )}
+          {navbarState == "createType" && <CreateType></CreateType>}
+
+          {/* {navbarState == "editTypes" && } */}
+          {/* de mientras hiden pero haber como me las ingenio para que sea un navbar left */}
+          <div
+            className={clsx(``, {
+              block: navbarTypes === true,
+              hidden: navbarTypes === false,
+            })}
+          >
+            {/* <PanelEditDash edit={navbarTypes} setEdit={setNavbarTypes}> */}
+            <ListTypes
+              userId={currentUser.id}
+              setNavbarTypes={setNavbarTypes}
+              navbarTypes={navbarTypes}
+            ></ListTypes>
+            {/* </PanelEditDash> */}
+          </div>
+        </>
+      )}
+
+      {/* <EditAll userId={currentUser.id}></EditAll> */}
+
       {/* navegar entre los tipos */}
-      <h2>navbar</h2>
+      {/* <h2>navbar</h2> */}
       {/* <NavbarTypes userId={currentUser.id} setCurrentType={setCurrentType}></NavbarTypes> */}
+
+      {/*  */}
+      <NavbarState
+        navbarState={navbarState}
+        setNavbarState={setNavbarState}
+
+        navbarTypes={navbarTypes}
+        setNavbarTypes={setNavbarTypes}
+
+        loadingDisableButton={status !== "authenticated" || !currentUser.id}
+      ></NavbarState>
     </div>
   );
 };

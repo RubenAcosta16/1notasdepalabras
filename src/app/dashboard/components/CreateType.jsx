@@ -1,9 +1,13 @@
 "use client";
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 import { useState, useEffect, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
+
+import { Textarea, Input, Button } from "@nextui-org/react";
+import { CiImageOn } from "react-icons/ci";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
@@ -15,12 +19,12 @@ const CreateVerb = () => {
 
   const { currentType, setCurrentType } = useCurrentTypeState();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  //   reset,
+  // } = useForm();
 
   const [isChecked, setIsChecked] = useState(false);
 
@@ -28,26 +32,33 @@ const CreateVerb = () => {
 
   const [sendImg, setSendImg] = useState(null);
 
+  const [hasImg, setHasImg] = useState(false);
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+
   // para las imagenes
   const onDrop = useCallback((acceptedFiles) => {
     // console.log(acceptedFiles[0]);
     // Do something with the files
-    setSendImg(acceptedFiles[0])
+    setSendImg(acceptedFiles[0]);
   }, []);
+
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({ onDrop });
   //
-  
-  const onSubmit = handleSubmit(async (data) => {
+
+  const onSubmit = (e) => {
+    e.preventDefault();
     if (!currentUser) {
       console.error("usuario no encontrado");
-      return; 
+      return;
     }
 
     // let dataImg=data.img
     // if(!dataImg){
     //     data.img
-    // } 
+    // }
 
     if (!currentUser) {
       console.error("usuario no encontrado");
@@ -63,11 +74,12 @@ const CreateVerb = () => {
     mutate(
       {
         id: uuidv4(),
-        name: data.name,
+        name: name,
         userId: currentUser.id,
         img: formData,
-        description: data.description,
+        description: description,
         hasGroup: isChecked,
+        hasImg: hasImg,
         validationImg: !sendImg,
       },
       {
@@ -75,13 +87,16 @@ const CreateVerb = () => {
           // setTitle("");
           // setBody("");
 
-          reset({
-            name: "", // Vaciar el valor del input 'name'
-            description: "", // Vaciar el valor del input 'description'
-            // group: "", // Vaciar el valor del input 'group'
-          });
+          // reset({
+          //   name: "", // Vaciar el valor del input 'name'
+          //   description: "", // Vaciar el valor del input 'description'
+          //   // group: "", // Vaciar el valor del input 'group'
+          // });
 
-          setCurrentType(data.name);
+          setName("");
+          setDescription("");
+
+          setCurrentType(name);
 
           console.warn("tipo creado");
         },
@@ -90,75 +105,133 @@ const CreateVerb = () => {
         },
       }
     );
-  });
+  };
   // console.log(!acceptedFiles)
 
   return (
-    <div>
-      <form action="" onSubmit={onSubmit}>
-        <label htmlFor="">Nombre del tipo:</label>
-        <input
-          name="verb"
-          type="text"
-          // value={username}
-          //   onChange={(event) => setUsername(event.target.value)}
-          {...register("name", {
-            required: "Este campo es requerido",
-          })}
-        />
-        {errors.name && <div>{errors.name.message}</div>}
+    <form
+      action=""
+      onSubmit={onSubmit}
+      className="mt-[70px] relative flex flex-col items-center w-full px-5 gap-[15px] rounded-tl-[50px] p-10"
+      style={{ boxShadow: "0 5px 15px rgba(0, 0, 0, 0.7)" }}
+    >
+      <h1 className="mb-[5px] text-[20px] font-semibold text-black text-wrap">
+        Crea un tipo de palabras
+      </h1>
 
-        <label htmlFor="">Descripcion:</label>
-        <textarea
-          id=""
-          cols="30"
-          rows="10"
-          type="text"
-          name="description"
-          // value={username}
-          //   onChange={(event) => setUsername(event.target.value)}
-          {...register("description", {
-            required: "Este campo es requerido",
-          })}
-        ></textarea>
+      <Input
+        type="text"
+        variant="underlined"
+        label="Nombre"
+        name="username"
+        value={name}
+        onChange={(e) => {
+          setName(e.target.value);
+        }}
+      />
 
-        {errors.description && <div>{errors.description.message}</div>}
-        {/* <label htmlFor="">has groups?
-        <input
-          type="checkbox"
-          checked={isChecked}
-          onChange={()=>setIsChecked(!isChecked)}
-        /></label> */}
+      <Textarea
+        variant="underlined"
+        label="Descripción"
+        // placeholder="Enter your description"
+        className="max-w-xs"
+        minRows={3}
+        value={description}
+        onChange={(e) => {
+          setDescription(e.target.value);
+        }}
+      />
 
-        <button type="button" onClick={() => setIsChecked(!isChecked)}>
-          {isChecked ? "remove groups" : "add groups"}
-        </button>
+      {/* <button type="button" onClick={() => setIsChecked(!isChecked)}>
+        {isChecked ? "remove groups" : "add groups"}
+      </button> */}
 
-        {/* para las imagenes */}
-        <div {...getRootProps()} className="bg-slate-300 p-5">
-          <input {...getInputProps()} /> 
-          {isDragActive ? (
-            <p>Drop the files here ...</p>
-          ) : (
-            <p>Drag 'n' drop some files here, or click to select files</p>
-          )}
-        </div>
-        {/* {acceptedFiles.length !== 0 && "Solo se puede enviar 1 archivo"} */}
+      <div className="flex flex-row gap-[5px] w-[250px] h-[82px]">
+        <Button
+          className="w-[50%] h-full text-[15px] text-wrap"
+          type="button"
+          color="warning"
+          // size="sm"
+          variant={isChecked ? "solid" : "ghost"}
+          // endContent={""}
+          onClick={() => setIsChecked(!isChecked)}
+        >
+          {isChecked ? "Eliminar grupos" : "Añadir grupos"}
+        </Button>
 
-        {sendImg && (
+        <Button
+          className="w-[50%] h-full text-[15px] text-wrap"
+          type="button"
+          color="secondary"
+          // size="sm"
+          variant={hasImg ? "solid" : "ghost"}
+          onClick={() => setHasImg(!hasImg)}
+        >
+          {hasImg ? "No mostrar imagenes" : "Mostrar imagenes"}
+        </Button>
+      </div>
+
+      {/* para las imagenes */}
+      {/* para pc */}
+      {/* <div {...getRootProps()} className="bg-slate-200 rounded-2xl p-5 flex flex-col justify-center items-center rounded-2xl border-2 border-dashed border-black cursor-pointer">
+        <input {...getInputProps()} />
+        <CiImageOn className="text-[150px]"></CiImageOn>
+        {isDragActive ? (
+          <p className="text-[14px]">Drop the files here ...</p>
+        ) : (
+          <p className="text-[14px]">Drag 'n' drop some files here, or click to select files</p>
+        )}
+      </div> */}
+      {/* {acceptedFiles.length !== 0 && "Solo se puede enviar 1 archivo"} */}
+
+      {/* para mobile */}
+      <Button color="success" type="button" {...getRootProps()} className="">
+        <input {...getInputProps()} />
+        <p className="text-[14px] text-white">
+          Añadir archivos <CiImageOn className="text-[20px] inline"></CiImageOn>
+        </p>
+      </Button>
+
+      {sendImg && (
+        <div className="flex flex-col">
+          {" "}
           <Image
             src={URL.createObjectURL(sendImg)}
             alt="Image preview"
             width={500}
-            height={300}
+            height={500}
+            className="w-full object-cover h-[170px] rounded-t-lg"
           />
-        )} 
+          {/* <Button
+            color="danger"
+            variant="solid"
+            type="button"
+            onClick={() => setSendImg(null)}
+          >
+            Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
+          </Button> */}
+          <Button
+            color="danger"
+            className=" font-medium py-2 flex-grow rounded-b-lg rounded-t-none text-[14px] text-white"
+            type="button"
+            onClick={() => setSendImg(null)}
+          >
+            {" "}
+            Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
+          </Button>
+        </div>
+      )}
 
-<button type="button" onClick={() => setSendImg(null)}>Limpiar imagenes</button>
-
-        <button>{isLoading ? "Loading..." : "Enviar"}</button>
-      </form>
-    </div>
+      <Button
+        type="submit"
+        color="primary"
+        variant="solid"
+        isLoading={isLoading}
+        className="w-[85%]"
+      >
+        Enviar
+      </Button>
+    </form>
   );
 };
 

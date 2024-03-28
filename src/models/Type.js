@@ -40,6 +40,11 @@ const TypeSchema = new Schema(
       // required: [true, "The Password is required "],
       // trim: true,
     },
+    hasImg:{
+      type: Boolean,
+      // required: [true, "The Password is required "],
+      // trim: true,
+    },
   },
   {
     timestamps: true,

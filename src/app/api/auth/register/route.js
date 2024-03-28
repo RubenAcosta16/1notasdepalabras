@@ -15,6 +15,15 @@ import { data } from "autoprefixer";
 export async function POST(request) {
   try {
     const body = await request.json();
+
+    if(body.password.length < 8){
+      return NextResponse.json(
+        { message: "La contraseña debe ser minimo de 8 caracteres",
+        ok:false },
+        { status: 400 }
+      );
+    }
+
     await dbConnect();
 
     // by email
@@ -51,7 +60,8 @@ export async function POST(request) {
       username: body.username,
       email: body.email,
       password: hashedPassword,
-      provider:"credentials"
+      provider:"credentials",
+      image:""
     }
 
     const newUser = new User(hashedUser);

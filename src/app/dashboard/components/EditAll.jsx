@@ -11,7 +11,7 @@ const EditAll = ({userId}) => {
       <div>
         Loading...
       </div>
-    );
+    ); 
   }
 
   return (

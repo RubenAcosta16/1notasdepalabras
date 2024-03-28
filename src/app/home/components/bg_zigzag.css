@@ -1,0 +1,6 @@
+.bg-zigzag{
+    background-color: #ffffff;
+    opacity: 0.8;
+    background-image:  linear-gradient(rgba(231, 231, 231, 1) 1.2000000000000002px, transparent 1.2000000000000002px), linear-gradient(to right, rgba(231, 231, 231, 1) 1.2000000000000002px, #ffffff 1.2000000000000002px);
+    background-size: 24px 24px;
+}

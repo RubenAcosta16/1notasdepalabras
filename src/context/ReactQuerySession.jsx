@@ -21,7 +21,7 @@ const ReactQuerySession = ({ children }) => {
       <QueryClientProvider client={queryClient}>
 
         {children}
-        <ReactQueryDevtools></ReactQueryDevtools>
+        {/* <ReactQueryDevtools></ReactQueryDevtools> */}
       </QueryClientProvider>
   );
 };

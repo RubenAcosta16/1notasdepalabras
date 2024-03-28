@@ -6,11 +6,11 @@ import axios from "axios";
 //   return data;
 // };
 export const putType = async (type) => {
-  const { name, description, typeId, img, hasGroup, validationImg } = type;
+  const { name, description, typeId, img, hasGroup, validationImg,hasImg } = type;
 
   // if(validationImg){
   //   console.log("no existe img")
-  // }
+  // } 
 
   // console.log(type)
   const { data } = await axios.put(`/api/type/${typeId}`, {
@@ -19,6 +19,7 @@ export const putType = async (type) => {
     typeId,
     // img:"",
     hasGroup,
+    hasImg
   });
 
   if (validationImg) {

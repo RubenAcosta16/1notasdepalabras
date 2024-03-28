@@ -40,8 +40,8 @@ export const postVerb = async (verb) => {
  
 // con reactQuery
 
-const createVerb = (currentType) => {
-  const queryClient = useQueryClient();
+const CreateVerb = (currentType) => {
+  const queryClient = useQueryClient(); 
 
   //esta cosa ya la exporta
   //const { mutate, error, isLoading, isSuccess, reset } =
@@ -60,4 +60,4 @@ const createVerb = (currentType) => {
   });
 };
 
-export default createVerb;
+export default CreateVerb;
