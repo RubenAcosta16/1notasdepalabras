@@ -14,6 +14,8 @@ import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 
 import createType from "@/actions/createType";
 
+import AddFiles from '@/app/components/AddFiles'
+
 const CreateVerb = () => {
   const { currentUser } = useCurrentUser();
 
@@ -128,13 +130,14 @@ const CreateVerb = () => {
         onChange={(e) => {
           setName(e.target.value);
         }}
+        className="w-full lg:w-[500px] mx-auto"
       />
 
       <Textarea
         variant="underlined"
         label="Descripción"
         // placeholder="Enter your description"
-        className="max-w-xs"
+        className="w-full lg:w-[500px] mx-auto"
         minRows={3}
         value={description}
         onChange={(e) => {
@@ -146,9 +149,9 @@ const CreateVerb = () => {
         {isChecked ? "remove groups" : "add groups"}
       </button> */}
 
-      <div className="flex flex-row gap-[5px] w-[250px] h-[82px]">
+      <div className="flex flex-row gap-[5px] w-[250px] lg:w-[500px] h-[82px]">
         <Button
-          className="w-[50%] h-full text-[15px] text-wrap"
+          className="w-[50%] h-full lg:h-[60px] text-[15px] text-wrap"
           type="button"
           color="warning"
           // size="sm"
@@ -160,7 +163,7 @@ const CreateVerb = () => {
         </Button>
 
         <Button
-          className="w-[50%] h-full text-[15px] text-wrap"
+          className="w-[50%] h-full lg:h-[60px] text-[15px] text-wrap"
           type="button"
           color="secondary"
           // size="sm"
@@ -184,50 +187,14 @@ const CreateVerb = () => {
       </div> */}
       {/* {acceptedFiles.length !== 0 && "Solo se puede enviar 1 archivo"} */}
 
-      {/* para mobile */}
-      <Button color="success" type="button" {...getRootProps()} className="">
-        <input {...getInputProps()} />
-        <p className="text-[14px] text-white">
-          Añadir archivos <CiImageOn className="text-[20px] inline"></CiImageOn>
-        </p>
-      </Button>
-
-      {sendImg && (
-        <div className="flex flex-col">
-          {" "}
-          <Image
-            src={URL.createObjectURL(sendImg)}
-            alt="Image preview"
-            width={500}
-            height={500}
-            className="w-full object-cover h-[170px] rounded-t-lg"
-          />
-          {/* <Button
-            color="danger"
-            variant="solid"
-            type="button"
-            onClick={() => setSendImg(null)}
-          >
-            Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
-          </Button> */}
-          <Button
-            color="danger"
-            className=" font-medium py-2 flex-grow rounded-b-lg rounded-t-none text-[14px] text-white"
-            type="button"
-            onClick={() => setSendImg(null)}
-          >
-            {" "}
-            Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
-          </Button>
-        </div>
-      )}
+      <AddFiles getRootProps={getRootProps} getInputProps={getInputProps} sendImg={sendImg} setSendImg={setSendImg} isDragActive={isDragActive}></AddFiles>
 
       <Button
         type="submit"
         color="primary"
         variant="solid"
         isLoading={isLoading}
-        className="w-[85%]"
+        className="w-[85%] lg:w-[256px] mt-[10px]"
       >
         Enviar
       </Button>

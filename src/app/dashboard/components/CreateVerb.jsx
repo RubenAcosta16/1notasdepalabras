@@ -14,6 +14,8 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 import createVerb from "@/actions/createVerb";
 
+import AddFiles from '@/app/components/AddFiles'
+
 const CreateVerb = () => {
   const { currentUser } = useCurrentUser();
 
@@ -22,6 +24,10 @@ const CreateVerb = () => {
   const { currentType, setCurrentType } = useCurrentTypeState();
 
   const { mutate, error, isLoading, isSuccess } = createVerb(currentType);
+
+
+
+
 
   // const refName = useRef(null);
   // const refDescription = useRef(null);
@@ -114,7 +120,7 @@ const CreateVerb = () => {
     <form
       action=""
       onSubmit={onSubmit}
-      className="mt-[70px] relative flex flex-col items-center w-full px-5 gap-[15px] rounded-tl-[50px] p-10"
+      className="mt-[70px] relative flex flex-col items-center w-full p-10 px-5 lg:px-20 gap-[15px] rounded-tl-[50px] "
       style={{boxShadow:"0 5px 15px rgba(0, 0, 0, 0.7)"}}
     >
       <h1 className="mb-[5px] text-[20px] font-semibold text-black">Crea una palabra</h1>
@@ -128,13 +134,15 @@ const CreateVerb = () => {
         onChange={(e) => {
           setName(e.target.value);
         }}
+        className="w-full lg:w-[500px] mx-auto"
       />
 
       <Textarea
         variant="underlined"
         label="Descripción"
         // placeholder="Enter your description"
-        className="max-w-xs"
+        
+        className="w-full lg:w-[500px] mx-auto"
         minRows={3}
         value={description}
         onChange={(e) => {
@@ -142,13 +150,13 @@ const CreateVerb = () => {
         }}
       />
 
-      <div className="relative w-full">
+      <div className="relative w-full lg:w-[500px] mx-auto mb-[20px]">
         {" "}
         <Textarea
           variant="underlined"
           label="Grupo"
           // placeholder="Enter your description"
-          className="max-w-xs"
+          className="w-full"
           minRows={3}
           value={group}
           onChange={(e) => {
@@ -203,55 +211,14 @@ const CreateVerb = () => {
       </div> */}
       {/* {acceptedFiles.length !== 0 && "Solo se puede enviar 1 archivo"} */}
 
-      {/* para mobile */}
-      <Button
-      color="success"
-        type="button"
-        {...getRootProps()}
-        className=""
-      >
-        <input {...getInputProps()} />
-        <p className="text-[14px] text-white">
-          Añadir archivos <CiImageOn className="text-[20px] inline"></CiImageOn>
-        </p>
-      </Button>
-
-      {sendImg && (
-        <div className="flex flex-col">
-          {" "}
-          <Image
-            src={URL.createObjectURL(sendImg)}
-            alt="Image preview"
-            width={500}
-            height={500}
-            className="w-full object-cover h-[170px] rounded-t-lg"
-          />
-          {/* <Button
-            color="danger"
-            variant="solid"
-            type="button"
-            onClick={() => setSendImg(null)}
-          >
-            Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
-          </Button> */}
-          <Button
-          color="danger"
-            className=" font-medium py-2 flex-grow rounded-b-lg rounded-t-none text-[14px] text-white"
-            type="button"
-            onClick={() => setSendImg(null)}
-          >
-            {" "}
-            Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
-          </Button>
-        </div>
-      )}
+      <AddFiles getRootProps={getRootProps} getInputProps={getInputProps} sendImg={sendImg} setSendImg={setSendImg} isDragActive={isDragActive}></AddFiles>
 
       <Button
         type="submit"
         color="primary"
         variant="solid"
         isLoading={isLoading}
-        className="w-[85%]"
+        className="w-[85%] lg:w-[256px] mt-[10px]"
       >
         Enviar
       </Button>

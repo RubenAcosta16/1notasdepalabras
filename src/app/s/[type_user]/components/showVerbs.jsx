@@ -24,7 +24,7 @@ const showVerbs = ({ currentType }) => {
 
   // mandar a llamar type para ver si pide con grupos
   // const [currentType, setCurrentType] = useState({})
-
+ 
   // if (!userId) {
   //   return <div>Loading...</div>;
   // }
@@ -73,62 +73,64 @@ const showVerbs = ({ currentType }) => {
   const verbsGrouped = useGroupVerbs(verbs);
 
   return (
-    <div className="bg-pattern text-white pt-[5px]">
+    <div className="bg-pattern text-white pt-[56px]">
+      {/* 10px mas por que si */}
+
       {/* panel con como ordenar los verbos */}
       <NavFunctions
         functionNav={functionNav}
         setFunctionNav={setFunctionNav}
         handleRamdomVerbs={handleRamdomVerbs}
         hasGroup={currentType.hasGroup}
+        isLoading={isLoading}
       ></NavFunctions>
 
+      <div className="flex flex-col justify-center md:items-center ml-[15px] md:ml-0">
       {isLoading ? (
         <>
           <Skeleton
-            className={"h-[26px] w-[120px] rounded-xl mt-[35px] ml-[15px]"}
+            className={"h-[26px] w-[120px] rounded-xl mt-[35px] ml-[15px] md:mx-auto"}
           ></Skeleton>
 
           <Skeleton
-            className={"h-[20px] w-[100px] rounded-xl mt-[10px] ml-[25px]"}
+            className={"h-[20px] w-[100px] rounded-xl mt-[10px] ml-[25px] md:mx-auto"}
           ></Skeleton>
         </>
       ) : (
         <>
-          <Tooltip content={seeTitle ? "Ver menos" : "Ver mas"}>
+          {/* <Tooltip content={seeTitle ? "Ver menos" : "Ver mas"}> */}
             <h1
               className={clsx(
-                "ml-[15px] text-[22px] font-semibold mt-[35px] w-[270px] break-words",
-                {
-                  "line-clamp-2": seeTitle === false,
-                  "line-clamp-none": seeTitle === true,
-                }
+                " md:ml-0 text-[25px] text-white font-medium mt-[35px] w-[270px] break-words line-clamp-2 hover:line-clamp-none",
+                // {
+                //   "line-clamp-2": seeTitle === false,
+                //   "line-clamp-none": seeTitle === true,
+                // }
               )}
-              onClick={() => setSeeTitle(!seeTitle)}
+              // onClick={() => setSeeTitle(!seeTitle)}
             >
               {currentType.name}
             </h1>
-          </Tooltip>
+          {/* </Tooltip> */}
 
-          <Tooltip content={seeDescription ? "Ver menos" : "Ver mas"}>
+          {/* <Tooltip content={seeDescription ? "Ver menos" : "Ver mas"}> */}
             <h2
               className={clsx(
-                "mx-[25px] cursor-pointer text-[16px] text-zinc-200 font-normal mt-[10px] w-[270px] break-words",
-                {
-                  "line-clamp-2": seeDescription === false,
-                  "line-clamp-none": seeDescription === true,
-                }
+                "ml-[35px] cursor-pointer text-[16px] text-zinc-200 font-normal mt-[10px] w-[270px] break-words line-clamp-2 hover:line-clamp-none",
+
               )}
-              onClick={() => setSeeDescription(!seeDescription)}
+              // onClick={() => setSeeDescription(!seeDescription)}
             >
               {currentType.description}
             </h2>
-          </Tooltip>
+          {/* </Tooltip> */}
         </>
       )}
+      </div>
 
       <ul
         className={clsx(
-          "text-black mt-[30px] w-full rounded-tl-[35px] py-[40px] px-[20px] bg-white flex flex-col ",
+          "text-black mt-[30px] w-full rounded-tl-[35px] py-[40px] px-[20px] lg:pl-[75px] bg-white dark:bg-zinc-700 flex flex-col ",
           {
             "gap-[8px]":
               currentType.hasGroup === false ||
@@ -162,7 +164,7 @@ const showVerbs = ({ currentType }) => {
           <>
             {/* <LoadingCard hasImg={currentType.hasImg}></LoadingCard> */}
             {verbs.length == 0 ? (
-              <>Sin verbos</>
+              <p>Sin verbos</p>
             ) : (
               <>
                 {!currentType.hasGroup &&

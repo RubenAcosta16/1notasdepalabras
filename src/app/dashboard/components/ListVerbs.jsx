@@ -11,7 +11,7 @@ import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 import EditGroups from "./edit/EditGroups";
 
 const ListVerbs = ({ userId, setNavbarState }) => {
-  const { currentType, setCurrentType } = useCurrentTypeState();
+  const { currentType, setCurrentType, setVerbsLength } = useCurrentTypeState();
 
   const {
     verbs,
@@ -29,6 +29,13 @@ const ListVerbs = ({ userId, setNavbarState }) => {
 
   useEffect(() => {
     refetch();
+    async function lenght() {
+      if (currentType) {
+        setVerbsLength(verbs.length);
+      }
+    }
+
+    lenght();
   }, [currentType]);
 
   // if (isLoading) {
@@ -47,7 +54,7 @@ const ListVerbs = ({ userId, setNavbarState }) => {
   // problema con nose y con que los verbos al final no los retorna con la propiedad groups
 
   return (
-    <ul className="overflow-hidden relative flex flex-col gap-5 px-4 items-center w-full">
+    <ul className="overflow-hidden relative flex flex-col gap-5 px-4 pb-[30px] items-center w-full">
       <h2 className=" text-[20px] font-semibold my-[30px]">Palabras</h2>
 
       {isLoading ? (

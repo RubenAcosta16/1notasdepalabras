@@ -9,7 +9,7 @@ const VerbsGrouped = ({ verbGrouped, functionNav,hasImg }) => {
     <li>
       {functionNav == "Normal" || functionNav == "Significados" ? (
         <>
-          <p className="text-[20px] text-black font-bold">
+          <p className="text-[20px] text-normal font-bold">
             Grupo: {verbGrouped[0].group ? verbGrouped[0].group : "Sin grupo"}
           </p>
           <ul className="flex flex-col gap-[5px] border-l border-zinc-600 ml-[6px] mt-[10px]">

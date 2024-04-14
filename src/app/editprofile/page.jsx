@@ -1,6 +1,8 @@
 "use client";
 import { useSession } from "next-auth/react";
 
+import clsx from 'clsx'
+
 import { Input, Button, Skeleton } from "@nextui-org/react";
 import { CiImageOn } from "react-icons/ci";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -34,8 +36,6 @@ const page = () => {
   const { currentUser, status, setCurrentUser } = useCurrentUser();
   // console.log(currentUser)
   const [username, setUsername] = useState("Cargando...");
-  const [sendImg, setSendImg] = useState(null);
-  const [borrarImg, setBorrarImg] = useState(false);
 
   // const [firstImgUser, setFirstImgUser] = useState("")
 
@@ -56,14 +56,24 @@ const page = () => {
 
   // console.log(username)
 
+  //
+  //
+  // img
+  const [sendImg, setSendImg] = useState(null);
+  const [borrarImg, setBorrarImg] = useState(false);
+
   // para las imagenes
   const onDrop = useCallback((acceptedFiles) => {
     // console.log(acceptedFiles[0]);
     // Do something with the files
     setSendImg(acceptedFiles[0]);
   }, []);
+
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({ onDrop });
+  //
+  //
+  //
   //
 
   const {
@@ -203,7 +213,7 @@ const page = () => {
                       />
                     )}
                   </>
-                )}
+                )} 
               </>
             )}
 
@@ -215,43 +225,67 @@ const page = () => {
           >
             Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
           </Button> */}
-            <Button
-              color="success"
-              type="button"
-              {...getRootProps()}
-              className=""
-            >
-              <input {...getInputProps()} />
-              <p className="text-[14px] text-white">
-                Añadir archivos{" "}
-                <CiImageOn className="text-[20px] inline"></CiImageOn>
-              </p>
-            </Button>
-            <Button
-              color="danger"
-              className=" font-medium py-2 flex-grow   text-[14px] text-white"
-              type="button"
-              onClick={() => setSendImg(null)}
-            >
-              {" "}
-              Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
-            </Button>
-
-            <Button
-              type="button"
-              onClick={() => {
-                setBorrarImg(!borrarImg);
-                setSendImg(null);
-              }}
-            >
-              {!borrarImg
-                ? "Eliminar foto de perfil"
-                : "Mantener foto de perfil"}
-            </Button>
           </div>
           {/* <Button type="button" onClick={() => setSendImg(null)}>
             Limpiar imagenes
           </Button> */}
+        </div>
+
+        <div className="flex flex-col lg:flex-row justify-center gap-[15px] w-[170px] lg:w-full mt-[30px]">
+          {/* esto es el boton para añadir archivos en mobile */}
+
+          <Button
+            color="success"
+            type="button"
+            {...getRootProps()}
+            className="font-medium  lg:hidden"
+          >
+            <input {...getInputProps()} />
+            <p className="text-[14px] text-white">
+              Añadir archivos{" "}
+              <CiImageOn className="text-[20px] inline"></CiImageOn>
+            </p>
+          </Button>
+
+          <Button
+            color="danger"
+            className=" font-medium py-2 flex-grow lg:flex-grow-0   text-[14px] text-white"
+            type="button"
+            onClick={() => setSendImg(null)}
+          >
+            {" "}
+            Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
+          </Button>
+
+          <Button
+            type="button"
+            className="font-medium"
+            onClick={() => {
+              setBorrarImg(!borrarImg);
+              setSendImg(null);
+            }}
+          >
+            {!borrarImg ? "Eliminar foto de perfil" : "Mantener foto de perfil"}
+          </Button>
+        </div>
+
+        {/* esto es el boton para añadir archivos en lg */}
+        <div
+          
+          className={clsx(
+            "mb-[10px] bg-slate-300 px-5 py-12 rounded-xl flex flex-col justify-center items-center border-2 border-dashed border-slate-500 hidden lg:block",
+            {
+              // "line-clamp-2": isDragActive === false,
+              "bg-slate-400": isDragActive === true,
+            }
+          )}
+          {...getRootProps()}
+        >
+          <input {...getInputProps()} />
+          <p className="text-[14px] text-white">
+            Arrastra para añadir archivos{" "}
+            <CiImageOn className="text-[20px] inline"></CiImageOn>, o has click
+          </p>
         </div>
 
         <Input
@@ -261,6 +295,7 @@ const page = () => {
           name="name"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
+          className="w-full lg:w-[400px] mx-auto mt-[20px]"
         />
         {/* <input
         // onChange={handleChangeName}
@@ -282,7 +317,7 @@ const page = () => {
           color="primary"
           variant="solid"
           isLoading={isLoading}
-          className="w-[85%]"
+          className="w-[85%] lg:w-[256px] mx-auto font-medium mt-[30px] rounded-full"
           isDisabled={status == "loading"}
         >
           Guardar

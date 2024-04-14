@@ -49,7 +49,7 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
               className="cursor-pointer flex flex-row items-center"
             >
               {/* name */}
-              <p className="text-[16px] font-semibold">
+              <p className="text-[16px] text-normal font-semibold">
                 {(functionNav == "Normal" ||
                   functionNav == "Aleatorio" ||
                   functionNav === "VerbsPorFecha") && <> {verb.name}</>}
@@ -61,7 +61,7 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
                 )}
               </p>
               <IoIosArrowForward
-                className={clsx("text-[18px] ml-[5px]", {
+                className={clsx("text-[18px] text-normal ml-[5px]", {
                   "rotate-0": showDescription === false,
                   "rotate-90": showDescription === true,
                 })}
@@ -70,9 +70,9 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
 
             {/* description */}
             <p
-              className={clsx("text-zinc-600  text-[16px]", {
+              className={clsx("text-normal-secondary  text-[16px]", {
                 hidden: showDescription === false,
-                "block ml-[6px] border-l border-zinc-500 pl-[6px]":
+                "block ml-[6px] border-l border-pink-500 pl-[6px]":
                   showDescription === true,
               })}
             >
@@ -93,7 +93,7 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
             className="cursor-pointer flex flex-row items-center"
           >
             {/* name */}
-            <p className="text-[16px] font-semibold">
+            <p className="text-[16px] text-normal font-semibold">
               {(functionNav == "Normal" ||
                 functionNav == "Aleatorio" ||
                 functionNav === "VerbsPorFecha") && <> {verb.name}</>}
@@ -105,7 +105,7 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
               )}
             </p>
             <IoIosArrowForward
-              className={clsx("text-[18px] ml-[5px]", {
+              className={clsx("text-[18px]  text-normal ml-[5px]", {
                 "rotate-0": showDescription === false,
                 "rotate-90": showDescription === true,
               })}
@@ -114,9 +114,9 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
 
           {/* description */}
           <p
-            className={clsx("text-zinc-600  text-[16px]", {
+            className={clsx("text-normal-secondary  text-[16px]", {
               hidden: showDescription === false,
-              "block ml-[6px] border-l border-cyan-600 pl-[6px]":
+              "block ml-[6px] border-l border-pink-500 pl-[6px]":
                 showDescription === true,
             })}
           >

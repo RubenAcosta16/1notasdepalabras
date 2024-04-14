@@ -1,9 +1,9 @@
 "use client";
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import Image from "next/image";
+// import Image from "next/image";
 
-import { CiImageOn } from "react-icons/ci";
+// import { CiImageOn } from "react-icons/ci";
 import { LuPencil } from "react-icons/lu";
 import { FaRegTrashAlt } from "react-icons/fa";
 
@@ -16,7 +16,9 @@ import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 import editVerb from "@/actions/editVerb";
 import deleteVerb from "@/actions/deleteVerb";
 
-const PanelVerbs = ({ verbThings, verbId, edit, setEdit,refetch }) => {
+import AddFiles from "@/app/components/AddFiles";
+
+const PanelVerbs = ({ verbThings, verbId, edit, setEdit, refetch }) => {
   const { currentType, setCurrentType } = useCurrentTypeState();
   const {
     name,
@@ -35,7 +37,6 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit,refetch }) => {
     isLoading,
     isSuccess,
     reset,
-    
   } = editVerb(currentType);
   const { mutate: mutateDelete } = deleteVerb(currentType);
 
@@ -89,8 +90,8 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit,refetch }) => {
             setImg("");
             setBorrarImg(false);
           }
-          setEdit(!edit)
-          refetch()
+          setEdit(!edit);
+          refetch();
         },
         onError: () => {
           console.error(error.response.data);
@@ -120,9 +121,8 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit,refetch }) => {
         className=" relative flex flex-col items-center w-full gap-[15px] rounded-xl  "
         // style={{ boxShadow: "0 5px 15px rgba(0, 0, 0, 0.7)" }}
       >
-         
-        <p className="mb-[5px] text-[16px] font-semibold text-black">
-          Editar palabra
+        <p className="mb-[5px] text-[16px] font-medium text-black">
+          Editar palabras
         </p>
         {/* <p>Name: {verb.name}</p> */}
 
@@ -133,13 +133,14 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit,refetch }) => {
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          className="w-full lg:w-[500px] mx-auto"
         />
 
         <Textarea
           variant="underlined"
           label="Descripción"
           // placeholder="Enter your description"
-          className="max-w-xs"
+          className="w-full lg:w-[500px] mx-auto"
           minRows={3}
           value={description}
           onChange={(e) => {
@@ -153,7 +154,7 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit,refetch }) => {
             variant="underlined"
             label="Grupo"
             // placeholder="Enter your description"
-            className="max-w-xs"
+            className="w-full lg:w-[500px] mx-auto"
             minRows={3}
             value={group}
             onChange={(e) => {
@@ -175,50 +176,22 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit,refetch }) => {
           {!borrarImg ? "Borrar imagenes" : "No borrar imagenes"}
         </Button>
 
-        {/* para mobile */}
-        <Button color="success" type="button" {...getRootProps()} className="">
-          <input {...getInputProps()} />
-          <p className="text-[14px] text-white">
-            Añadir archivos{" "}
-            <CiImageOn className="text-[20px] inline"></CiImageOn>
-          </p>
-        </Button>
+        <AddFiles
+          getRootProps={getRootProps}
+          getInputProps={getInputProps}
+          sendImg={sendImg}
+          setSendImg={setSendImg}
+          isDragActive={isDragActive}
+          img={img}
+        ></AddFiles>
 
-        {sendImg && (
-          <div className="flex flex-col">
-            {" "}
-            <Image
-              src={URL.createObjectURL(sendImg)}
-              alt="Image preview"
-              width={500}
-              height={500}
-              className="w-full object-cover h-[170px] rounded-t-lg"
-            />
-            {/* <Button
-            color="danger"
-            variant="solid"
-            type="button"
-            onClick={() => setSendImg(null)}
-          >
-            Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
-          </Button> */}
-            <Button
-              color="danger"
-              className=" font-medium py-2 flex-grow rounded-b-lg rounded-t-none text-[14px] text-white"
-              type="button"
-              onClick={() => setSendImg(null)}
-            >
-              {" "}
-              Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
-            </Button>
-          </div>
-        )}
         
-        <div className="mt-[30px] flex flex-row justify-between w-full">
+
+        <div className="mt-[30px] flex flex-row justify-between  w-full lg:w-[337px] lg:gap-[15px]">
           <Button
             type="button"
             color="danger"
-            className="font-medium flex-wrap"
+            className="font-medium flex-wrap "
             onClick={handleDelete}
           >
             <FaRegTrashAlt className="inline"></FaRegTrashAlt>
@@ -227,7 +200,7 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit,refetch }) => {
           <Button
             type="submit"
             color="success"
-            className="font-medium "
+            className="font-medium lg:flex-grow"
             isLoading={isLoading}
             // onClick={() => handleEdit()}
           >

@@ -3,49 +3,39 @@ import clsx from "clsx";
 
 import "./bgs.css";
 
+import { Button } from "@nextui-org/react";
+
 const NavFunctions = ({
   functionNav,
   setFunctionNav,
   handleRamdomVerbs,
   hasGroup,
-}) => { 
+  isLoading,
+}) => {
   const navLi =
-    "relative flex flex-col items-center justify-center text-center w-[135px] h-[60px] mx-auto rounded-2xl hover:border-3 overflow-hidden";
+    "relative flex flex-col items-center justify-center text-center w-[135px] h-[60px] mx-auto rounded-2xl hover:border-3 overflow-hidden text-center text-[16px] font-normal text-white font-medium z-20";
 
-  const navItem = "text-center text-[16px] font-normal text-white font-medium ";
+  const navItem = " text-center text-[16px] font-normal text-white font-medium break-words ";
   // const itemSelected=""
 
   return (
     <nav className="w-full mt-[35px]  relative ">
-      <ul
-        className="mx-auto items-center justify-center content-center"
-        style={{
-          display: "grid",
-          gridTemplateColumns: " repeat(2, 1fr)",
-          gridTemplateRows: " repeat(2, 1fr)",
-          gridColumnGap: " 0px",
-          gridRowGap: " 15px",
-        }}
-      >
-        <li
-          className={clsx(
-            `bg-teal-500 ${navLi} hover:border-teal-300 `,
-            {
-              "border-3 border-teal-300": functionNav === "Normal",
-            }
-          )}
+      <ul className="mx-auto items-center justify-center content-center grid grid-cols-2 gap-[20px] md:w-[40%]">
+        <Button
+          disabled={isLoading}
+          // className={`${navItem} relative `}
+          className={clsx(`bg-teal-500 ${navLi} hover:border-teal-300`, {
+            "border-3 border-teal-300": functionNav === "Normal",
+          })}
+          onClick={() => {
+            setFunctionNav("Normal");
+          }}
         >
-          <button
-            className={`${navItem} relative z-20`}
-            onClick={() => setFunctionNav("Normal")}
-          >
-            Normal
-          </button>
-
+          <p className={navItem}>Normal</p>
           <svg
             viewBox="0 0 1000 1000"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[50px] h-[50px] absolute top-[-30px] left-[-15px] svg-blue"
+            className="w-[50px] h-[50px] absolute top-[-20px] left-[-5px] svg-blue"
           >
             <defs>
               <clipPath id="a">
@@ -63,26 +53,26 @@ const NavFunctions = ({
               />
             </g>
           </svg>
-        </li>
+        </Button>
 
-        <li
+        <Button
+          disabled={isLoading}
+          // className={`${navItem}`}
           className={clsx(`bg-amber-600 ${navLi} hover:border-amber-300`, {
             "border-3 border-amber-300": functionNav === "Aleatorio",
           })}
-        >
-          <button
-            className={`${navItem}`}
-            onClick={() => {
+          onClick={() => {
+            if (!isLoading) {
               setFunctionNav("Aleatorio");
               handleRamdomVerbs();
-            }}
-          >
-            Aleatorio
-          </button>
+            }
+          }}
+        >
+          <p className={navItem}>Aleatorio</p>
           <svg
             viewBox="0 0 1000 1000"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[50px] h-[50px] absolute top-[42px] left-[27px] svg-blue rotate-180"
+            className="w-[50px] h-[50px] absolute top-[37px] left-[17px] svg-blue rotate-180"
           >
             <defs>
               <clipPath id="a">
@@ -100,23 +90,24 @@ const NavFunctions = ({
               />
             </g>
           </svg>
-        </li>
+        </Button>
 
-        <li
+        <Button
+          disabled={isLoading}
           className={clsx(`bg-lime-600 ${navLi} hover:border-lime-300`, {
             "border-3 border-lime-300": functionNav === "Significados",
           })}
+          onClick={() => {
+            if (!isLoading) {
+              setFunctionNav("Significados");
+            }
+          }}
         >
-          <button
-            className={`${navItem}`}
-            onClick={() => setFunctionNav("Significados")}
-          >
-            Significados
-          </button>
+          <p className={navItem}>Significados</p>
           <svg
             viewBox="0 0 1000 1000"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[50px] h-[50px] absolute top-[-30px] left-[27px] svg-blue rotate-180"
+            className="w-[50px] h-[50px] absolute top-[-27px] left-[37px] svg-blue rotate-180"
           >
             <defs>
               <clipPath id="a">
@@ -137,7 +128,7 @@ const NavFunctions = ({
           <svg
             viewBox="0 0 1000 1000"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[50px] h-[50px] absolute top-[35px] left-[70px] svg-blue "
+            className="w-[50px] h-[50px] absolute top-[30px] left-[70px] svg-blue "
           >
             <defs>
               <clipPath id="a">
@@ -155,25 +146,24 @@ const NavFunctions = ({
               />
             </g>
           </svg>
-        </li>
-        <li
-          className={clsx(`bg-rose-600 ${navLi} hover:border-rose-300`, {
+        </Button>
+
+        <Button
+          className={clsx(`bg-pink-600 ${navLi} hover:border-rose-300`, {
             "border-3 border-rose-300": functionNav === "SignificadosAleatorio",
           })}
-        >
-          <button
-            className={`${navItem} z-20`}
-            onClick={() => {
+          onClick={() => {
+            if (!isLoading) {
               setFunctionNav("SignificadosAleatorio");
               handleRamdomVerbs();
-            }}
-          >
-            Significados Aleatorio
-          </button>
+            }
+          }}
+        >
+          <p className={navItem}>Significados <p>Aleatorio</p></p>
           <svg
             viewBox="0 0 1000 1000"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-[100px] h-[100px] absolute top-[15px] left-[-45px] svg-blue"
+            className="w-[100px] h-[100px] absolute top-[-50px] left-[65px] svg-blue"
           >
             <defs>
               <clipPath id="a">
@@ -191,7 +181,8 @@ const NavFunctions = ({
               />
             </g>
           </svg>
-        </li>
+        </Button>
+
         {/* {hasGroup && (
           <li className={navLi}>
             <button

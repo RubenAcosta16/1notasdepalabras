@@ -1,6 +1,9 @@
 "use client";
+import { useState, useEffect } from "react";
+
 import { signOut, useSession } from "next-auth/react";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import useDarkMode from "@/hooks/useDarkMode";
 import Link from "next/link";
 import { Poppins } from "next/font/google";
 
@@ -17,25 +20,42 @@ const poppins = Poppins({ subsets: ["latin"], weight: ["300", "500", "700"] });
 const Navbar = () => {
   const { status } = useSession();
   const { currentUser } = useCurrentUser();
-  const itemLi = "p-2 hover:bg-slate-200 flex-1 hover:text-pink-600";
+  const { setCurrentMode } = useDarkMode();
+
+  const [theme, setTheme] = useState(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setCurrentMode("dark")
+      return "dark";
+    }
+
+    return "light";
+  });
+
+  useEffect(() => {
+    if (theme == "dark") {
+      document.querySelector("html").classList.add("dark");
+      setCurrentMode("dark")
+    } else {
+      document.querySelector("html").classList.remove("dark");
+      setCurrentMode("light")
+    }
+  }, [theme]);
+
+  const itemLi = "p-2 hover:bg-slate-200 dark:hover:bg-slate-600 flex-auto hover:text-pink-600";
   const iconLi = "size-[22px] m-auto";
+
+  const shadow = { textShadow: "1px 1px 3px rgba(0,0,0,0.7)" };
   // console.log(currentUser);
   // console.log(status);
 
-//   <li className={itemLi}>
-//   <button>
-//     {/* <FiSun className={`${iconLi} relative top-[3px]`} /> */}
-//     <FaRegMoon className={`${iconLi} relative top-[3px]`} />
-//   </button>
-// </li>
-
   return (
     <nav
-      className={`${poppins.className}  flex flex-row justify-between z-10 relative text-zinc-600`}
+      className={`${poppins.className} relative flex flex-row justify-between z-40 relative text-zinc-100`}
     >
       <Link
         href="/home"
         className="text-[16px] flex my-auto ml-[8px] lg:l-[70px]  tracking-tighter relative"
+        style={shadow}
       >
         Notas de palabras
       </Link>
@@ -51,11 +71,31 @@ const Navbar = () => {
               </Link>
             </li> */}
 
-            <li className={"inline " + itemLi}>
+            <li className={itemLi}>
+              <button
+                onClick={() => {
+                  setTheme((prevTheme) =>
+                    prevTheme == "light" ? "dark" : "light"
+                  );
+                }}
+              >
+                <FiSun
+                  className={`${iconLi} relative top-[3px] hidden dark:block text-zinc-300`}
+                />
+                <FaRegMoon
+                  className={`${iconLi} relative top-[3px] block dark:hidden text-zinc-300`}
+                />
+              </button>
+            </li>
+
+            <li className={"inline " + itemLi + " flex-auto"}>
               {/* falta img poner al lado*/}
-              <Link href="/editprofile">
+              <Link
+                href="/editprofile"
+                className="flex flex-row justify-center items-center gap-[15px]"
+              >
                 {currentUser.image ? (
-                  <Image
+                  <Image 
                     src={currentUser.image}
                     alt="Image preview"
                     width={30}
@@ -71,13 +111,16 @@ const Navbar = () => {
                     className="rounded-full relative object-contain"
                   />
                 )}
-                <span className="hidden md:inline text-[15px]">{currentUser.username}</span>
+                <span className="hidden md:inline text-[15px]" style={shadow}>
+                  {currentUser.username}
+                </span>
               </Link>
             </li>
-            <li className={itemLi}>
+
+            <li className={`${itemLi} text-zinc-300`}>
               <Link href="/dashboard">
                 <LuLayoutDashboard className={iconLi} />
-                <span className="hidden lg:inline">Dashboard</span>
+                {/* <span className="hidden lg:inline">Dashboard</span> */}
               </Link>
             </li>
             {/* <li className={itemLi}>
@@ -86,16 +129,24 @@ const Navbar = () => {
                 <span className="hidden lg:inline">Edit profile</span>
               </Link>
             </li> */}
-            <li className={itemLi} onClick={async () => await signOut()}>
+            <li
+              className={`${itemLi} text-zinc-300`}
+              onClick={async () => await signOut()}
+            >
               <IoLogOutOutline className={`${iconLi} rotate-180`} />
-              <span className="hidden lg:inline">Sign Out</span>
+              {/* <span className="hidden lg:inline">Sign Out</span> */}
             </li>
           </>
         ) : (
-          <li className={itemLi}>
-            <Link href="/auth/login">
+          <li className={`${itemLi} text-zinc-300`}>
+            <Link
+              href="/auth/login"
+              className="flex flex-row justify-center items-center gap-[15px]"
+            >
               <IoLogOutOutline className={`${iconLi}`} />
-              <span className="hidden lg:inline">Login</span>
+              <span className="hidden inline text-[15px] font-medium">
+                Login
+              </span>
             </Link>
           </li>
         )}

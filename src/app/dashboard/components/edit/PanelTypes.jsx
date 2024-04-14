@@ -10,6 +10,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { Textarea, Input, Button } from "@nextui-org/react";
 
 import PanelEditDash from "@/app/components/PanelEditDash";
+import AddFiles from "@/app/components/AddFiles";
 
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 
@@ -22,7 +23,7 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
     setName,
     description,
     setDescription,
-    hasGroup,
+    hasGroup, 
     setHasGroup,
     hasImg,
     setHasImg,
@@ -93,8 +94,8 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
             setImg("");
             setBorrarImg(false);
           }
-          setEdit(!edit)
-          setCurrentType(name)
+          setEdit(!edit);
+          setCurrentType(name);
         },
         onError: () => {
           console.error(error.response.data);
@@ -126,7 +127,7 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
         className="relative flex flex-col items-center w-full    gap-[15px] rounded-xl "
       >
         {/* <p>Name: {verb.name}</p> */}
-        <p className="mb-[5px] text-[16px] font-semibold text-black">
+        <p className="mb-[5px] text-normal text-[16px] font-semibold text-black">
           Editar tipo
         </p>
 
@@ -137,13 +138,14 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          className="w-full lg:w-[500px] mx-auto"
         />
 
         <Textarea
           variant="underlined"
           label="Descripción"
           // placeholder="Enter your description"
-          className="max-w-xs"
+          className="w-full lg:w-[500px] mx-auto"
           minRows={3}
           value={description}
           onChange={(e) => {
@@ -151,12 +153,10 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
           }}
         />
 
-
-
-        <div className="flex flex-row gap-[5px] w-[220px] h-[82px]">
+        <div className="flex flex-row gap-[5px] w-[250px] lg:w-[500px] h-[82px]">
           <Button
             type="button"
-            className="w-[50%] h-full text-[15px] text-wrap"
+            className="w-[50%] h-full lg:h-[60px] text-[15px] text-wrap"
             color="warning"
             size="sm"
             variant={hasGroup ? "solid" : "ghost"}
@@ -166,7 +166,7 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
           </Button>
 
           <Button
-            className="w-[50%] h-full text-[15px] text-wrap"
+            className="w-[50%] h-full lg:h-[60px] text-[15px] text-wrap"
             type="button"
             color="secondary"
             size="sm"
@@ -189,49 +189,22 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
           {!borrarImg ? "Borrar imagenes" : "No borrar imagenes"}
         </Button>
 
-        {/* para mobile */}
-        <Button color="success" type="button" {...getRootProps()} className="">
-          <input {...getInputProps()} />
-          <p className="text-[14px] text-white">
-            Añadir archivos{" "}
-            <CiImageOn className="text-[20px] inline"></CiImageOn>
-          </p>
-        </Button>
-
-        {sendImg && (
-          <div className="flex flex-col">
-            {" "}
-            <Image
-              src={URL.createObjectURL(sendImg)}
-              alt="Image preview"
-              width={500}
-              height={500}
-              className="w-full object-cover h-[170px] rounded-t-lg"
-            />
-            {/* <Button
-            color="danger"
-            variant="solid"
-            type="button"
-            onClick={() => setSendImg(null)}
-          >
-            Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
-          </Button> */}
-            <Button
-              color="danger"
-              className=" font-medium py-2 flex-grow rounded-b-lg rounded-t-none text-[14px] text-white"
-              type="button"
-              onClick={() => setSendImg(null)}
-            >
-              {" "}
-              Limpiar imagen <FaRegTrashAlt className="inline"></FaRegTrashAlt>
-            </Button>
-          </div>
-        )}
+        <AddFiles
+          getRootProps={getRootProps}
+          getInputProps={getInputProps}
+          sendImg={sendImg}
+          setSendImg={setSendImg}
+          isDragActive={isDragActive}
+          img={img}
+        ></AddFiles>
 
         <div
-          className={clsx("mt-[30px] flex flex-row justify-between w-full", {
-            hidden: buttonDelete === true,
-          })}
+          className={clsx(
+            "mt-[30px] flex flex-row justify-between w-full lg:w-[337px] lg:gap-[15px] mx-auto",
+            {
+              hidden: buttonDelete === true,
+            }
+          )}
         >
           <Button
             type="button"
@@ -244,7 +217,7 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
           <Button
             type="submit"
             color="success"
-            className="font-medium "
+            className="font-medium lg:flex-grow"
             isLoading={isLoading}
             // onClick={() => handleEdit()}
           >
@@ -252,7 +225,12 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
           </Button>
         </div>
 
-        <div className={clsx("mt-[20px]", { hidden: buttonDelete === false })}>
+        <div
+          className={clsx(
+            "mt-[20px] w-full lg:w-[337px] lg:gap-[15px] mx-auto",
+            { hidden: buttonDelete === false }
+          )}
+        >
           <p className="text-[14px] font-medium text-black">
             ¿Estas seguro de eliminar el tipo? tambien se los verbos de este
             tipo
@@ -263,7 +241,7 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
               color="danger"
               type="button"
               onClick={() => handleDelete()}
-              className="text-[14px] font-medium"
+              className="text-[14px] font-medium lg:flex-grow"
             >
               Si
             </Button>
@@ -272,7 +250,7 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
               color="default"
               type="button"
               onClick={() => setButtonDelete(false)}
-              className="text-[14px] font-medium"
+              className="text-[14px] font-medium lg:flex-grow"
             >
               No
             </Button>

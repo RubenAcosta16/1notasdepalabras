@@ -1,6 +1,13 @@
 .bg-zigzag{
     background-color: #ffffff;
-    opacity: 0.8;
-    background-image:  linear-gradient(rgba(231, 231, 231, 1) 1.2000000000000002px, transparent 1.2000000000000002px), linear-gradient(to right, rgba(231, 231, 231, 1) 1.2000000000000002px, #ffffff 1.2000000000000002px);
-    background-size: 24px 24px;
+    background-image:  linear-gradient(rgba(231,231,231,1) 1px, transparent 1px), linear-gradient(to right, rgba(231,231,231,1) 1px, #ffffff 1px);
+    background-size: 20px 20px;
 }
+
+.bg-zigzag-dark{
+    background-color: #222831;
+    background-image:  linear-gradient(rgba(79, 79, 98, 1) 1px, transparent 1px), linear-gradient(to right, rgba(79, 79, 98, 1) 1px, #222831 1px);
+    background-size: 20px 20px;
+}
+
+

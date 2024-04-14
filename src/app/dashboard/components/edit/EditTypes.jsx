@@ -4,7 +4,6 @@ import Image from "next/image";
 
 import PanelTypes from "./PanelTypes";
 
-
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 
 import { LuPencil } from "react-icons/lu";
@@ -29,31 +28,29 @@ const EditTypes = ({ userId, type, setNavbarTypes, navbarTypes }) => {
 
   return (
     <li
-      className={clsx(
-        `relative flex flex-col w-full  gap-[15px] rounded-xl bg-white`,
-        {
-          "bg-white": currentType === name,
-          "bg-zinc-100": currentType !== name,
-        }
-      )}
+      className={clsx(`relative flex flex-col w-full  gap-[15px] rounded-xl`, {
+        "bg-zinc-100 dark:bg-zinc-600": currentType === name,
+        "bg-squaresList": currentType !== name,
+      })}
       style={{ boxShadow: "0 5px 15px rgba(0, 0, 0, 0.4)" }}
     >
-      <MyImg name={name} img={img} height={125}></MyImg>
+      <MyImg name={name} img={img} height={125} types={true}></MyImg>
+
       <Button
         type="button"
         color="warning"
         // size=""
         onClick={() => setEdit((state) => !state)}
-        className="self-center absolute top-0 right-0 p-0 rounded-tl-none rounded-br-none z-20"
+        className="self-center absolute top-0 right-0 p-0 rounded-xl rounded-tl-none rounded-br-none z-20"
       >
         <LuPencil className="inline"></LuPencil>
       </Button>
 
       <div className="flex flex-col w-full  gap-[15px] pb-4 px-4">
-        <p className="text-[16px] font-semibold text-cyan-600 break-words line-clamp-2 hover:line-clamp-none">
+        <p className="text-[16px] font-semibold text-cyan-600 break-words line-clamp-2 hover:line-clamp-none lg:hover:line-clamp-2">
           Name: {name}
         </p>
-        <p className="ml-[5px] break-words line-clamp-2 hover:line-clamp-none">
+        <p className="ml-[5px] text-normal break-words line-clamp-2 hover:line-clamp-none lg:hover:line-clamp-2">
           Description: <span className="font-semibold">{description}</span>{" "}
         </p>
         {/* <p>Group: {group}</p> */}
@@ -70,12 +67,14 @@ const EditTypes = ({ userId, type, setNavbarTypes, navbarTypes }) => {
           Select
         </Button>
 
-        <div className="flex flex-row justify-between text-[16px] font-semibold">
+        <div className="flex flex-row justify-between gap-[5px] text-[16px] font-semibold">
           {hasGroup ? (
             <p className="text-lime-600">Grupos</p>
           ) : (
             <p className="text-rose-600">Sin grupos</p>
           )}
+
+          <div className="w-[1px] h-full bg-zinc-500 rounded-xl mt-[5px]" />
 
           {hasImg ? (
             <p className="text-lime-600">Imagenes</p>
@@ -85,25 +84,24 @@ const EditTypes = ({ userId, type, setNavbarTypes, navbarTypes }) => {
         </div>
       </div>
 
-
-        <PanelTypes
-          userId={userId}
-          typeThings={{
-            name,
-            setName,
-            description,
-            setDescription,
-            hasGroup,
-            setHasGroup,
-            hasImg,
-            setHasImg,
-            img,
-            setImg,
-          }}
-          edit={edit}
-          setEdit={setEdit}
-          typeId={type.id}
-        ></PanelTypes>
+      <PanelTypes
+        userId={userId}
+        typeThings={{
+          name,
+          setName,
+          description,
+          setDescription,
+          hasGroup,
+          setHasGroup,
+          hasImg,
+          setHasImg,
+          img,
+          setImg,
+        }}
+        edit={edit}
+        setEdit={setEdit}
+        typeId={type.id}
+      ></PanelTypes>
     </li>
   );
 };

@@ -10,7 +10,7 @@ import { LuPencil } from "react-icons/lu";
 
 import PanelVerbs from "./PanelVerbs";
 
-const EditVerbs = ({ verb,refetch }) => {
+const EditVerbs = ({ verb, refetch }) => {
   const [edit, setEdit] = useState(false);
 
   const [name, setName] = useState(verb.name);
@@ -22,18 +22,22 @@ const EditVerbs = ({ verb,refetch }) => {
 
   return (
     <li className="relative flex flex-col text-[15px] font-medium ">
-      <p className="w-[70%] text-[16px] font-semibold mb-[15px] break-words">{name}</p>
+      <p className="w-[70%] text-[16px] font-semibold mb-[15px] lg:ml-[90px] break-words">
+        {name}
+      </p>
 
       {/* {img && <Image src={img} alt="img" width={500} height={300} />} */}
-      <MyImg name={name} img={img} height={125}></MyImg>
+      <div className="flex flex-col mx-auto">
+        <MyImg name={name} img={img} height={125}></MyImg>
 
-      <div className="ml-[5px] pl-[3px]  border-l border-black">
-        <p className="ml-[5px] break-words">
-          Description: <span className="font-semibold">{description}</span>{" "}
-        </p>
-        {/* <p className="ml-[5px]">
-          Group: <span className="font-semibold break-words">{group}</span>{" "}
-        </p> */}
+        <div className="ml-[5px] pl-[3px]  border-l border-black">
+          <p className="ml-[5px] break-words">
+            Description: <span className="font-semibold">{description}</span>{" "}
+          </p>
+          {/* <p className="ml-[5px]">
+    Group: <span className="font-semibold break-words">{group}</span>{" "}
+  </p> */}
+        </div>
       </div>
 
       {/* <Button onClick={() => setEdit((state) => !state)}>Edit</Button> */}
@@ -66,7 +70,6 @@ const EditVerbs = ({ verb,refetch }) => {
           refetch={refetch}
         ></PanelVerbs>
       )}
-
     </li>
   );
 };
