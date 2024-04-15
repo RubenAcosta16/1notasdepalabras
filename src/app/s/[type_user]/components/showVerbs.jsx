@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery, useQueryClient } from "react-query";
 import clsx from "clsx";
+import { MagicMotion } from "react-magic-motion";
 
 import useVerbs from "@/hooks/useVerbs";
 import useGroupVerbs from "@/hooks/useGroupVerbs";
@@ -24,7 +25,7 @@ const showVerbs = ({ currentType }) => {
 
   // mandar a llamar type para ver si pide con grupos
   // const [currentType, setCurrentType] = useState({})
- 
+
   // if (!userId) {
   //   return <div>Loading...</div>;
   // }
@@ -86,22 +87,26 @@ const showVerbs = ({ currentType }) => {
       ></NavFunctions>
 
       <div className="flex flex-col justify-center md:items-center ml-[15px] md:ml-0">
-      {isLoading ? (
-        <>
-          <Skeleton
-            className={"h-[26px] w-[120px] rounded-xl mt-[35px] ml-[15px] md:mx-auto"}
-          ></Skeleton>
+        {isLoading ? (
+          <>
+            <Skeleton
+              className={
+                "h-[26px] w-[120px] rounded-xl mt-[35px] ml-[15px] md:mx-auto"
+              }
+            ></Skeleton>
 
-          <Skeleton
-            className={"h-[20px] w-[100px] rounded-xl mt-[10px] ml-[25px] md:mx-auto"}
-          ></Skeleton>
-        </>
-      ) : (
-        <>
-          {/* <Tooltip content={seeTitle ? "Ver menos" : "Ver mas"}> */}
+            <Skeleton
+              className={
+                "h-[20px] w-[100px] rounded-xl mt-[10px] ml-[25px] md:mx-auto"
+              }
+            ></Skeleton>
+          </>
+        ) : (
+          <>
+            {/* <Tooltip content={seeTitle ? "Ver menos" : "Ver mas"}> */}
             <h1
               className={clsx(
-                " md:ml-0 text-[25px] text-white font-medium mt-[35px] w-[270px] break-words line-clamp-2 hover:line-clamp-none",
+                " md:ml-0 text-[25px] text-white font-medium mt-[35px] w-[270px] break-words line-clamp-2 hover:line-clamp-none"
                 // {
                 //   "line-clamp-2": seeTitle === false,
                 //   "line-clamp-none": seeTitle === true,
@@ -111,21 +116,20 @@ const showVerbs = ({ currentType }) => {
             >
               {currentType.name}
             </h1>
-          {/* </Tooltip> */}
+            {/* </Tooltip> */}
 
-          {/* <Tooltip content={seeDescription ? "Ver menos" : "Ver mas"}> */}
+            {/* <Tooltip content={seeDescription ? "Ver menos" : "Ver mas"}> */}
             <h2
               className={clsx(
-                "ml-[35px] cursor-pointer text-[16px] text-zinc-200 font-normal mt-[10px] w-[270px] break-words line-clamp-2 hover:line-clamp-none",
-
+                "ml-[35px] cursor-pointer text-[16px] text-zinc-200 font-normal mt-[10px] w-[270px] break-words line-clamp-2 hover:line-clamp-none"
               )}
               // onClick={() => setSeeDescription(!seeDescription)}
             >
               {currentType.description}
             </h2>
-          {/* </Tooltip> */}
-        </>
-      )}
+            {/* </Tooltip> */}
+          </>
+        )}
       </div>
 
       <ul
@@ -197,18 +201,21 @@ const showVerbs = ({ currentType }) => {
                     ></VerbsGrouped>
                   ))}
 
+                {/* random */}
                 {functionNav == "Aleatorio" ||
                 functionNav == "SignificadosAleatorio" ? (
                   <>
-                    {verbsRandom.map((verb, index) => (
-                      <VerbCard
-                        key={verb.id}
-                        verb={verb}
-                        functionNav={functionNav}
-                        hasImg={currentType.hasImg}
-                        index={index}
-                      ></VerbCard>
-                    ))}
+                    <MagicMotion>
+                      {verbsRandom.map((verb, index) => (
+                        <VerbCard
+                          key={verb.id}
+                          verb={verb}
+                          functionNav={functionNav}
+                          hasImg={currentType.hasImg}
+                          index={index}
+                        ></VerbCard>
+                      ))}
+                    </MagicMotion>
                   </>
                 ) : (
                   ""

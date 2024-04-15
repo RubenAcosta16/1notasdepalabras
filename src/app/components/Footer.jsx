@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-      <ul className="relative bg-zinc-600 text-white text-[13px] w-auto flex flex-col justify-center mx-auto p-4">
+      <ul className="relative hidden lg:block bg-zinc-600 text-white text-[13px] w-auto flex flex-col justify-center mx-auto p-4">
         <li>
           <span className="text-zinc-300">Creador:</span> Ruben Acosta
         </li>

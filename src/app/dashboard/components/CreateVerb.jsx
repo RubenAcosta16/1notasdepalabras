@@ -120,10 +120,10 @@ const CreateVerb = () => {
     <form
       action=""
       onSubmit={onSubmit}
-      className="mt-[70px] relative flex flex-col items-center w-full p-10 px-5 lg:px-20 gap-[15px] rounded-tl-[50px] "
+      className="mt-[70px] bg-squaresList relative flex flex-col items-center w-full p-10 px-5 lg:px-20 gap-[15px] rounded-tl-[50px] "
       style={{boxShadow:"0 5px 15px rgba(0, 0, 0, 0.7)"}}
     >
-      <h1 className="mb-[5px] text-[20px] font-semibold text-black">Crea una palabra</h1>
+      <h1 className="mb-[5px] text-[20px] font-semibold text-normal">Crea una palabra</h1>
 
       <Input
         type="text"

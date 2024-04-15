@@ -6,7 +6,8 @@ import ReactQuerySession from "@/context/ReactQuerySession";
 import AuthUser from "@/context/AuthUser";
 import NextUi from "@/context/NextUi";
 
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
+import NavBar from "./components/navbar/NavBar";
 import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,7 +26,8 @@ export default function RootLayout({ children }) {
           <ReactQuerySession>
           <AuthUser>
             <NextUi>
-              <Navbar></Navbar>
+              {/* <Navbar></Navbar> */}
+              <NavBar></NavBar>
               {children}
               <Footer></Footer>
             </NextUi>

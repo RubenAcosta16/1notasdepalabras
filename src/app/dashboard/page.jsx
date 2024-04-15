@@ -79,7 +79,7 @@ const page = () => {
 
       <div className="relative flex flex-col justify-center items-center w-full lg:w-[80%]">
         <div
-          className={`mt-[30px] w-[90%] lg:w-[50%] mx-auto bg-zinc-800 text-white flex flex-row py-5 rounded-2xl`}
+          className={`mt-[30px] w-[90%] lg:w-[50%] mx-auto bg-zinc-800 dark:bg-zinc-900 text-white flex flex-row py-5 rounded-2xl`}
         >
           <div className="overflow-hidden flex flex-col justify-center items-center flex-grow">
             <p className="text-[13px] font-normal">Tipo actual:</p>
@@ -88,7 +88,7 @@ const page = () => {
                 <>{currentType}</>
               ) : (
                 <Skeleton
-                  className={"h-[16px] w-[50px] rounded-xl mx-auto"}
+                  className={"h-[24px] w-[50px] rounded-xl mx-auto"}
                 ></Skeleton>
               )}
             </p>
@@ -109,7 +109,7 @@ const page = () => {
                 <>{verbsLength}</>
               ) : (
                 <Skeleton
-                  className={"h-[16px] w-[50px] rounded-xl mx-auto"}
+                  className={"h-[24px] w-[50px] rounded-xl mx-auto"}
                 ></Skeleton>
               )}
             </p>

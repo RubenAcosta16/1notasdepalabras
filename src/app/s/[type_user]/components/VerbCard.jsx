@@ -1,14 +1,39 @@
 "use client";
 import ShowImg from "./ShowImg";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import { useAnimate } from "framer-motion";
 
 import { useState } from "react";
 import clsx from "clsx";
 
 import { IoIosArrowForward } from "react-icons/io";
+import { transform } from "next/dist/build/swc";
 
 const VerbCard = ({ verb, functionNav, hasImg, index }) => {
   const [showDescription, setShowDescription] = useState(false);
+
+  const [scope, animate] = useAnimate();
+
+  async function animations() {
+    // if (showDescription) {
+    //   await animate(
+    //     scope.current,
+    //     { transform: "rotate(90deg)" },
+    //     { duration: 0.4, ease: [0.76, 0, 0.24, 1] }
+    //   );
+    // } else {
+    //   await animate(
+    //     scope.current,
+    //     { transform: "rotate(0deg)" },
+    //     { duration: 0.4, ease: [0.76, 0, 0.24, 1] }
+    //   );
+    // }
+
+    // // {
+    // //   "rotate-0": showDescription === false,
+    // //   "rotate-90": showDescription === true,
+    // // }
+  }
 
   // console.log(index % 2);
   return (
@@ -45,7 +70,10 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
           </CardBody>
           <CardFooter className="text-small flex flex-col items-start">
             <div
-              onClick={() => setShowDescription(!showDescription)}
+              onClick={() => {
+                setShowDescription(!showDescription);
+                animations();
+              }}
               className="cursor-pointer flex flex-row items-center"
             >
               {/* name */}
@@ -60,12 +88,13 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
                   </>
                 )}
               </p>
-              <IoIosArrowForward
-                className={clsx("text-[18px] text-normal ml-[5px]", {
-                  "rotate-0": showDescription === false,
-                  "rotate-90": showDescription === true,
-                })}
-              />
+              <div
+                ref={scope}
+                className={clsx("text-[18px]  text-normal ml-[5px]")}
+              >
+                {/* caracter > porque magicMotion es algo delicado */}
+                &gt;
+              </div>
             </div>
 
             {/* description */}
@@ -89,7 +118,10 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
       ) : (
         <>
           <div
-            onClick={() => setShowDescription(!showDescription)}
+            onClick={() => {
+              setShowDescription(!showDescription);
+              animations();
+            }}
             className="cursor-pointer flex flex-row items-center"
           >
             {/* name */}
@@ -104,12 +136,19 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
                 </>
               )}
             </p>
-            <IoIosArrowForward
+            {/* <IoIosArrowForward
               className={clsx("text-[18px]  text-normal ml-[5px]", {
                 "rotate-0": showDescription === false,
                 "rotate-90": showDescription === true,
               })}
-            />
+            /> */}
+            <div
+              ref={scope}
+              className={clsx("text-[18px]  text-normal ml-[5px]")}
+            >
+              {/* caracter > porque magicMotion es algo delicado */}
+              &gt;
+            </div>
           </div>
 
           {/* description */}

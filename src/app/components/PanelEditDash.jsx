@@ -8,7 +8,7 @@ import { Button } from "@nextui-org/react";
 const PanelEditDash = ({ edit, setEdit, children }) => {
   const panelRef = useRef(null);
   useClickAway(panelRef, () => {
-    console.log("OUTSIDE CLICKED");
+    // console.log("OUTSIDE CLICKED");
     setEdit(!edit)
   });
 
