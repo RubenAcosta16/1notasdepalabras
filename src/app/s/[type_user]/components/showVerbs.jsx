@@ -4,6 +4,7 @@ import axios from "axios";
 import { useQuery, useQueryClient } from "react-query";
 import clsx from "clsx";
 import { MagicMotion } from "react-magic-motion";
+import { useAnimate, motion, AnimatePresence } from "framer-motion";
 
 import useVerbs from "@/hooks/useVerbs";
 import useGroupVerbs from "@/hooks/useGroupVerbs";
@@ -145,10 +146,10 @@ const showVerbs = ({ currentType }) => {
           </>
         )}
       </div>
-
+        
       <ul
         className={clsx(
-          "text-black mt-[30px] w-full rounded-tl-[35px] py-[40px] px-[20px] lg:pl-[75px] bg-white dark:bg-zinc-700 flex flex-col ",
+          "text-black mt-[30px] w-full rounded-tl-[35px] py-[40px] px-[20px] lg:pl-[155px] bg-white dark:bg-zinc-700 flex flex-col ",
           {
             "gap-[8px]":
               currentType.hasGroup === false ||
@@ -215,12 +216,14 @@ const showVerbs = ({ currentType }) => {
                     ></VerbsGrouped>
                   ))}
 
+
+
                 {/* random */}
                 {functionNav == "Aleatorio" ||
                 functionNav == "SignificadosAleatorio" ? (
+                  
                   <>
-                    {shuffle ? (
-                      <MagicMotion>
+                  <AnimatePresence>
                         {verbsRandom.map((verb, index) => (
                           <VerbCard
                             key={verb.id}
@@ -230,21 +233,10 @@ const showVerbs = ({ currentType }) => {
                             index={index}
                           ></VerbCard>
                         ))}
-                      </MagicMotion>
-                    ) : (
-                      <>
-                        {verbsRandom.map((verb, index) => (
-                          <VerbCard
-                            key={verb.id}
-                            verb={verb}
-                            functionNav={functionNav}
-                            hasImg={currentType.hasImg}
-                            index={index}
-                          ></VerbCard>
-                        ))}
+                        </AnimatePresence>
                       </>
-                    )}
-                  </>
+                    
+                  
                 ) : (
                   ""
                 )}

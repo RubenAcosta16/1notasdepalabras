@@ -53,11 +53,12 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
 
   // console.log(index % 2);
   return (
-    <li
-      className={clsx("ml-[8px]", {
+    <motion.li
+      className={clsx("ml-[8px] lg:", {
         "mt-[15px]": index % 4 == 0 && index !== 0,
         // "line-clamp-none": seeTitle === true,
       })}
+      layout
     >
       {hasImg ? (
         <Card
@@ -186,6 +187,7 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
                 initial="initial"
                 animate="enter"
                 exit="exit"
+                layout
               >
                 {(functionNav == "Normal" ||
                   functionNav == "Aleatorio" ||
@@ -217,7 +219,7 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
         <div className="h-[150px] w-[264px] bg-zinc-300 rounded-xl"></div>
       )} */}
       {/* <ShowImg img={verb.img}></ShowImg> */}
-    </li>
+    </motion.li>
   );
 };
 export default VerbCard;
