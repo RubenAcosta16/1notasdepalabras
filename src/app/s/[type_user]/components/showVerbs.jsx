@@ -69,8 +69,6 @@ const showVerbs = ({ currentType }) => {
     arrRandom.sort(randomCompare);
     setVerbsRandom([...arrRandom]);
 
-
-
     timeoutId = setTimeout(() => {
       setShuffle(false);
     }, 3000);
@@ -87,6 +85,24 @@ const showVerbs = ({ currentType }) => {
   // }
 
   const verbsGrouped = useGroupVerbs(verbs);
+
+  const slideVerbs = {
+    initial: {
+      x: 100,
+      opacity: 0,
+      transition: { duration: 0.1 },
+    },
+    enter: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.1 },
+    },
+    exit: {
+      x: -100,
+      opacity: 0,
+      transition: { duration: 0.1 },
+    },
+  };
 
   return (
     <div className="bg-pattern text-white pt-[56px]">
@@ -146,7 +162,7 @@ const showVerbs = ({ currentType }) => {
           </>
         )}
       </div>
-        
+
       <ul
         className={clsx(
           "text-black mt-[30px] w-full rounded-tl-[35px] py-[40px] px-[20px] lg:pl-[155px] bg-white dark:bg-zinc-700 flex flex-col ",
@@ -208,35 +224,32 @@ const showVerbs = ({ currentType }) => {
                 {currentType.hasGroup &&
                   (functionNav == "Normal" || functionNav == "Significados") &&
                   verbsGrouped.map((verbGrouped) => (
-                    <VerbsGrouped
-                      functionNav={functionNav}
-                      key={verbGrouped[0].name}
-                      verbGrouped={verbGrouped}
-                      hasImg={currentType.hasImg}
-                    ></VerbsGrouped>
+                    <>
+                      <VerbsGrouped
+                        functionNav={functionNav}
+                        key={verbGrouped[0].name}
+                        verbGrouped={verbGrouped}
+                        hasImg={currentType.hasImg}
+                      ></VerbsGrouped>
+                    </>
                   ))}
-
-
 
                 {/* random */}
                 {functionNav == "Aleatorio" ||
                 functionNav == "SignificadosAleatorio" ? (
-                  
                   <>
-                  <AnimatePresence>
-                        {verbsRandom.map((verb, index) => (
-                          <VerbCard
-                            key={verb.id}
-                            verb={verb}
-                            functionNav={functionNav}
-                            hasImg={currentType.hasImg}
-                            index={index}
-                          ></VerbCard>
-                        ))}
-                        </AnimatePresence>
-                      </>
-                    
-                  
+                    <AnimatePresence>
+                      {verbsRandom.map((verb, index) => (
+                        <VerbCard
+                          key={verb.id}
+                          verb={verb}
+                          functionNav={functionNav}
+                          hasImg={currentType.hasImg}
+                          index={index}
+                        ></VerbCard>
+                      ))}
+                    </AnimatePresence>
+                  </>
                 ) : (
                   ""
                 )}

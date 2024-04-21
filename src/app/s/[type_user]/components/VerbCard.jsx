@@ -117,12 +117,20 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
             </div>
 
             {/* description */}
-            <p
+            <motion.p
               className={clsx("text-normal-secondary  text-[16px]", {
                 hidden: showDescription === false,
                 "block ml-[6px] border-l border-pink-500 pl-[6px]":
                   showDescription === true,
               })}
+
+              variants={showDesc}
+              initial="initial"
+              animate="enter"
+              exit="exit"
+              layout
+
+              style={{ overflow: 'hidden', transformOrigin: 'top' }}
             >
               {(functionNav == "Normal" ||
                 functionNav == "Aleatorio" ||
@@ -131,7 +139,7 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
               )}{" "}
               {(functionNav == "Significados" ||
                 functionNav == "SignificadosAleatorio") && <> {verb.name}</>}
-            </p>
+            </motion.p>
           </CardFooter>
         </Card>
       ) : (
