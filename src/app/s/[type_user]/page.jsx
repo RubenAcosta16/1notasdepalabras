@@ -64,7 +64,7 @@ const page = ({ params }) => {
   //   console.log(currentUser.id)
 
   return (
-    <div className={`${quicksand.className} relative font-medium mt-[-46px] `}>
+    <div className={`${quicksand.className} relative font-medium mt-[-56px] `}>
 
       {/* <svg  className="absolute top-[-13px] left-0 fill-slate-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path

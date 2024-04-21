@@ -22,7 +22,7 @@ const EditVerbs = ({ verb, refetch }) => {
 
   return (
     <li className="relative flex flex-col text-[15px] font-medium ">
-      <p className="w-[70%] text-[16px] font-semibold mb-[15px] lg:ml-[90px] break-words">
+      <p className="w-[70%] text-[16px] font-semibold mb-[15px] lg:ml-[120px] break-words">
         {name}
       </p>
 

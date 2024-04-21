@@ -1,39 +1,55 @@
 "use client";
 import ShowImg from "./ShowImg";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
-import { useAnimate } from "framer-motion";
+import { useAnimate, motion, AnimatePresence } from "framer-motion";
 
 import { useState } from "react";
 import clsx from "clsx";
 
 import { IoIosArrowForward } from "react-icons/io";
-import { transform } from "next/dist/build/swc";
 
 const VerbCard = ({ verb, functionNav, hasImg, index }) => {
   const [showDescription, setShowDescription] = useState(false);
 
   const [scope, animate] = useAnimate();
 
-  async function animations() {
-    // if (showDescription) {
-    //   await animate(
-    //     scope.current,
-    //     { transform: "rotate(90deg)" },
-    //     { duration: 0.4, ease: [0.76, 0, 0.24, 1] }
-    //   );
-    // } else {
-    //   await animate(
-    //     scope.current,
-    //     { transform: "rotate(0deg)" },
-    //     { duration: 0.4, ease: [0.76, 0, 0.24, 1] }
-    //   );
-    // }
+  // , ease: [0.76, 0, 0.24, 1]
 
-    // // {
-    // //   "rotate-0": showDescription === false,
-    // //   "rotate-90": showDescription === true,
-    // // }
+  function animations() {
+    if (!showDescription) {
+      animate(
+        scope.current,
+        { transform: "rotate(135deg)" },
+        { duration: 0.1 }
+      );
+    } else {
+      animate(scope.current, { transform: "rotate(45deg)" }, { duration: 0.1 });
+    }
+    // {
+    //   "rotate-0": showDescription === false,
+    //   "rotate-90": showDescription === true,
+    // }
   }
+
+  //usando y
+
+  const showDesc = {
+    initial: {
+      scaleY: 0,
+      opacity: 0,
+      transition: { duration: 0.1 },
+    },
+    enter: {
+      scaleY: 1,
+      opacity: 1,
+      transition: { duration: 0.1 },
+    },
+    exit: {
+      scaleY: 0,
+      opacity: 0,
+      transition: { duration: 0.1 },
+    },
+  };
 
   // console.log(index % 2);
   return (
@@ -89,12 +105,14 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
                 )}
               </p>
               <div
-                ref={scope}
-                className={clsx("text-[18px]  text-normal ml-[5px]")}
-              >
-                {/* caracter > porque magicMotion es algo delicado */}
-                &gt;
-              </div>
+                className={clsx(
+                  "h-[12px] w-[12px]  ml-[15px] rotate-45 border-r-2 border-t-2 text-normal border-black dark:border-white ml-[5px]",
+                  {
+                    "rotate-45": showDescription === false,
+                    "rotate-[135deg]": showDescription === true,
+                  }
+                )}
+              ></div>
             </div>
 
             {/* description */}
@@ -144,27 +162,41 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
             /> */}
             <div
               ref={scope}
-              className={clsx("text-[18px]  text-normal ml-[5px]")}
-            >
-              {/* caracter > porque magicMotion es algo delicado */}
-              &gt;
-            </div>
+              className={clsx(
+                "h-[12px] w-[12px]  ml-[15px] rotate-45 border-r-2 border-t-2 text-normal border-black dark:border-white ml-[5px]"
+                // {
+                //   "rotate-45": showDescription === false,
+                //   "rotate-[135deg]": showDescription === true,
+                // }
+              )}
+            ></div>
           </div>
 
           {/* description */}
-          <p
-            className={clsx("text-normal-secondary  text-[16px]", {
-              hidden: showDescription === false,
-              "block ml-[6px] border-l border-pink-500 pl-[6px]":
-                showDescription === true,
-            })}
-          >
-            {(functionNav == "Normal" ||
-              functionNav == "Aleatorio" ||
-              functionNav === "VerbsPorFecha") && <> {verb.description}</>}{" "}
-            {(functionNav == "Significados" ||
-              functionNav == "SignificadosAleatorio") && <> {verb.name}</>}
-          </p>
+          <AnimatePresence>
+            {showDescription && (
+              <motion.p
+                className={clsx("text-normal-secondary  text-[16px]", {
+                  "block ml-[6px] border-l border-pink-500 pl-[6px]":
+                    showDescription === true,
+                })}
+                style={{ overflow: 'hidden', transformOrigin: 'top' }}
+                
+                variants={showDesc}
+                initial="initial"
+                animate="enter"
+                exit="exit"
+              >
+                {(functionNav == "Normal" ||
+                  functionNav == "Aleatorio" ||
+                  functionNav === "VerbsPorFecha") && (
+                  <> {verb.description}</>
+                )}{" "}
+                {(functionNav == "Significados" ||
+                  functionNav == "SignificadosAleatorio") && <> {verb.name}</>}
+              </motion.p>
+            )}
+          </AnimatePresence>
         </>
       )}
 
@@ -189,3 +221,33 @@ const VerbCard = ({ verb, functionNav, hasImg, index }) => {
   );
 };
 export default VerbCard;
+
+// const Description = () => {
+
+//   const [scope, animate] = useAnimate();
+
+//   // , ease: [0.76, 0, 0.24, 1]
+
+//   function animations() {
+//     if (!showDescription) {
+//       animate(
+//         scope.current,
+//         { transform: "rotate(135deg)" },
+//         { duration: 0.1 }
+//       );
+//     } else {
+//       animate(
+//         scope.current,
+//         { transform: "rotate(45deg)" },
+//         { duration: 0.1 }
+//       );
+//     }
+//     // {
+//     //   "rotate-0": showDescription === false,
+//     //   "rotate-90": showDescription === true,
+//     // }
+//   }
+
+//   // console.log(index % 2);
+//   return ();
+// }

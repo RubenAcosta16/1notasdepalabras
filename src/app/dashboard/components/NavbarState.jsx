@@ -27,7 +27,7 @@ const NavbarTypes = ({
       <Button
         isDisabled={loadingDisableButton}
         className={clsx(``, navButton, {
-          "bg-zinc-800 dark:bg-slate-300 text-normal-inverse lg:left-0 lg:rounded-r-full":
+          "bg-slate-300 text-pink-700 lg:left-0 lg:rounded-r-full":
             navbarState === "createVerb",
         })}
         onClick={() => {
@@ -51,7 +51,7 @@ const NavbarTypes = ({
       <Button
         isDisabled={loadingDisableButton}
         className={clsx(` `, navButton, {
-          "bg-zinc-800 dark:bg-slate-300 text-normal-inverse lg:left-0 lg:rounded-r-full":
+          "bg-pink-950 dark:bg-slate-300 text-white dark:text-pink-700 lg:left-0 lg:rounded-r-full":
             navbarState === "createType",
         })}
         onClick={() => setNavbarState("createType")}
@@ -73,10 +73,13 @@ const NavbarTypes = ({
       <Button
         isDisabled={loadingDisableButton}
         className={clsx(``, navButton, {
-          "bg-zinc-800 dark:bg-slate-300 text-normal-inverse lg:left-0 lg:rounded-r-full":
+          "bg-pink-950 dark:bg-slate-300 text-white dark:text-pink-700 lg:left-0 lg:rounded-r-full":
             navbarState === "editVerbs",
         })}
-        onClick={() => setNavbarState("editVerbs")}
+        onClick={() => {
+          setNavbarState("editVerbs")
+          console.log("no null")
+        }}
       >
         <span className={navText}>Edit Verbs</span>{" "}
         <RiEditFill className="mx-auto lg:mx-0 inline"></RiEditFill>

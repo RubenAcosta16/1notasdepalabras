@@ -50,8 +50,16 @@ const showVerbs = ({ currentType }) => {
   const [seeTitle, setSeeTitle] = useState(false);
   const [seeDescription, setSeeDescription] = useState(false);
 
+  const [shuffle, setShuffle] = useState(false);
+
+  let timeoutId = setTimeout(() => {}, 0);
+
   function handleRamdomVerbs() {
     // Función de comparación aleatoria para el método sort()
+
+    clearTimeout(timeoutId);
+    setShuffle(true);
+
     const randomCompare = () => Math.random() - 0.5;
 
     const arrRandom = [...verbs];
@@ -59,6 +67,12 @@ const showVerbs = ({ currentType }) => {
     // Ordena la copia del array de forma aleatoria
     arrRandom.sort(randomCompare);
     setVerbsRandom([...arrRandom]);
+
+
+
+    timeoutId = setTimeout(() => {
+      setShuffle(false);
+    }, 3000);
   }
 
   // if (isLoading) {
@@ -205,17 +219,31 @@ const showVerbs = ({ currentType }) => {
                 {functionNav == "Aleatorio" ||
                 functionNav == "SignificadosAleatorio" ? (
                   <>
-                    <MagicMotion>
-                      {verbsRandom.map((verb, index) => (
-                        <VerbCard
-                          key={verb.id}
-                          verb={verb}
-                          functionNav={functionNav}
-                          hasImg={currentType.hasImg}
-                          index={index}
-                        ></VerbCard>
-                      ))}
-                    </MagicMotion>
+                    {shuffle ? (
+                      <MagicMotion>
+                        {verbsRandom.map((verb, index) => (
+                          <VerbCard
+                            key={verb.id}
+                            verb={verb}
+                            functionNav={functionNav}
+                            hasImg={currentType.hasImg}
+                            index={index}
+                          ></VerbCard>
+                        ))}
+                      </MagicMotion>
+                    ) : (
+                      <>
+                        {verbsRandom.map((verb, index) => (
+                          <VerbCard
+                            key={verb.id}
+                            verb={verb}
+                            functionNav={functionNav}
+                            hasImg={currentType.hasImg}
+                            index={index}
+                          ></VerbCard>
+                        ))}
+                      </>
+                    )}
                   </>
                 ) : (
                   ""

@@ -10,6 +10,7 @@ import { useWindowSize } from "react-use";
 
 import Image from "next/image";
 
+
 import { IoHomeOutline, IoLogOutOutline } from "react-icons/io5";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaRegUser } from "react-icons/fa";
@@ -31,7 +32,6 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
       name: (
         <li className={`${itemLi} text-zinc-300`}>
           <div
-            href="/auth/login"
             className="flex flex-row justify-center items-center gap-[15px]"
           >
             <IoLogOutOutline className={`${iconLi}`} />
@@ -39,8 +39,21 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
           </div>
         </li>
       ),
-      link: "/contact",
+      link: "/auth/login",blank:false
     },
+    
+    {
+      name: (
+        <li className={`${itemLi} text-zinc-300`}>
+          <div
+            className="flex flex-row justify-center text-[15px] items-center gap-[15px]"
+          >
+            Acerca de:
+          </div>
+        </li>
+      ),
+      link: "https://rubenacosta.vercel.app/",blank:true
+    }
   ]);
 
   useEffect(() => {
@@ -75,7 +88,7 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
                 </div>
               </li>
             ),
-            link: "/editprofile",
+            link: "/editprofile",blank:false
           },
           {
             name: (
@@ -86,7 +99,7 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
                 </div>
               </li>
             ),
-            link: "/dashboard",
+            link: "/dashboard",blank:false
           },
           {
             name: (
@@ -98,8 +111,20 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
                 <span className="text-[15px]">Sign Out</span>
               </li>
             ),
-            link: "#",
+            link: "#",blank:false
           },
+          {
+            name: (
+              <li className={`${itemLi} text-zinc-300`}>
+                <div
+                  className="flex flex-row justify-center text-[15px] items-center gap-[15px]"
+                >
+                  Acerca de:
+                </div>
+              </li>
+            ),
+            link: "https://rubenacosta.vercel.app/",blank:true
+          }
         ]);
       }
     };
@@ -236,6 +261,9 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
           {navItems.map((navItem, index) => (
             <NavLink key={index} index={index} link={navItem}></NavLink>
           ))}
+          
+
+      
 
           <div className="relative -top-10 border-b border-slate-400 pb-2"></div>
         </ul>

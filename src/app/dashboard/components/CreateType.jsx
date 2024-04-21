@@ -114,7 +114,7 @@ const CreateVerb = () => {
     <form
       action=""
       onSubmit={onSubmit}
-      className="mt-[70px] bg-squaresList relative flex flex-col items-center w-full px-5 gap-[15px] rounded-tl-[50px] p-10"
+      className="mt-[70px] bg-squaresList relative h-auto lg:h-[643px] flex flex-col items-center w-full px-5 gap-[15px] rounded-tl-[50px] p-10"
       style={{ boxShadow: "0 5px 15px rgba(0, 0, 0, 0.7)" }}
     >
       <h1 className="mb-[5px] text-[20px] font-semibold text-normal text-wrap">

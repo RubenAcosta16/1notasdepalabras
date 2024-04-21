@@ -1,12 +1,14 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import clsx from "clsx";
+
+import { useClickAway } from "react-use";
 
 import { Noto_Sans_Cham, Quicksand } from "next/font/google";
 import { Button, Skeleton } from "@nextui-org/react";
 
-
+import { motion, AnimatePresence } from "framer-motion";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
@@ -49,13 +51,47 @@ const page = () => {
 
   const { currentUser, status } = useCurrentUser();
 
-
+  const panelRef = useRef(null);
+  useClickAway(panelRef, () => {
+    // console.log("OUTSIDE CLICKED");
+    setNavbarTypes(!navbarTypes);
+  });
 
   // if (status == "authenticated" && currentUser.id) {
   //   setLoadingDisableButton(false);
   // }
 
   // console.log(navbarTypes);
+
+  const menuSlide = {
+    initial: {
+      x: 100,
+      transition: {
+        duration: 0.2,
+        type: "spring", // Usa una transición tipo "spring" para más naturalidad
+        stiffness: 260,
+        damping: 20,
+      },
+    },
+    enter: {
+      x: 0,
+      transition: {
+        duration: 0.2,
+        type: "spring", // Usa una transición tipo "spring" para más naturalidad
+        stiffness: 260,
+        damping: 20,
+      },
+    },
+    exit: {
+      x: 100,
+      transition: {
+        duration: 0.2,
+        // type: "spring", // Usa una transición tipo "spring" para más naturalidad
+        stiffness: 260,
+        damping: 20,
+      },
+    },
+  };
 
   return (
     <div
@@ -83,7 +119,7 @@ const page = () => {
         >
           <div className="overflow-hidden flex flex-col justify-center items-center flex-grow">
             <p className="text-[13px] font-normal">Tipo actual:</p>
-            <p className="mt-[4px] text-yellow-300 text-[16px] font-medium line-clamp-1 hover:line-clamp-none w-[80px]">
+            <p className="mt-[4px] text-pink-600 text-[16px] font-medium line-clamp-1 hover:line-clamp-none w-[80px]">
               {currentType !== "" ? (
                 <>{currentType}</>
               ) : (
@@ -116,7 +152,7 @@ const page = () => {
 
             <Button
               className="mt-[13px] py-2 px-8 bg-zinc-950 rounded-full text-[14px] font-semibold text-white"
-              onClick={() => console.log("esto debe editar este tipo")}
+              onClick={() => setNavbarState("editVerbs")}
             >
               Editar
             </Button>
@@ -138,20 +174,25 @@ const page = () => {
 
             {/* {navbarState == "editTypes" && } */}
             {/* de mientras hiden pero haber como me las ingenio para que sea un navbar left */}
-            <div
-              className={clsx(``, {
-                block: navbarTypes === true,
-                hidden: navbarTypes === false,
-              })}
-            >
-              {/* <PanelEditDash edit={navbarTypes} setEdit={setNavbarTypes}> */}
-              <ListTypes
-                userId={currentUser.id}
-                setNavbarTypes={setNavbarTypes}
-                navbarTypes={navbarTypes}
-              ></ListTypes>
-              {/* </PanelEditDash> */}
-            </div>
+            <AnimatePresence>
+              {navbarTypes && (
+                <motion.div
+                ref={panelRef}
+                  variants={menuSlide}
+                  initial="initial"
+                  animate="enter"
+                  exit="exit"
+                >
+                  {/* <PanelEditDash edit={navbarTypes} setEdit={setNavbarTypes}> */}
+                  <ListTypes
+                    userId={currentUser.id}
+                    setNavbarTypes={setNavbarTypes}
+                    navbarTypes={navbarTypes}
+                  ></ListTypes>
+                  {/* </PanelEditDash> */}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </>
         )}
 

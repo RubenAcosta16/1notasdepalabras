@@ -121,7 +121,7 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit, refetch }) => {
         className=" relative flex flex-col items-center w-full gap-[15px] rounded-xl  "
         // style={{ boxShadow: "0 5px 15px rgba(0, 0, 0, 0.7)" }}
       >
-        <p className="mb-[5px] text-[16px] font-medium text-black">
+        <p className="mb-[5px] text-[16px] font-medium text-normal">
           Editar palabras
         </p>
         {/* <p>Name: {verb.name}</p> */}

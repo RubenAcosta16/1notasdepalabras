@@ -10,6 +10,8 @@ import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 
 import EditGroups from "./edit/EditGroups";
 
+import '@/app/components/css/scroll.css'
+
 const ListVerbs = ({ userId, setNavbarState }) => {
   const { currentType, setCurrentType, setVerbsLength } = useCurrentTypeState();
 
@@ -30,7 +32,8 @@ const ListVerbs = ({ userId, setNavbarState }) => {
   useEffect(() => {
     refetch();
     async function lenght() {
-      if (currentType) {
+      if (currentType && verbs) {
+        console.log(verbs.length);
         setVerbsLength(verbs.length);
       }
     }
@@ -54,7 +57,7 @@ const ListVerbs = ({ userId, setNavbarState }) => {
   // problema con nose y con que los verbos al final no los retorna con la propiedad groups
 
   return (
-    <ul className="overflow-hidden relative flex flex-col gap-5 px-4 pb-[30px] items-center w-full">
+    <ul className="myscroll overflow-x-hidden relative flex flex-col gap-5 h-auto lg:h-[714px] px-9 lg:px-4 pb-[30px] items-center w-full">
       <h2 className=" text-[20px] font-semibold my-[30px]">Palabras</h2>
 
       {isLoading ? (
@@ -66,10 +69,10 @@ const ListVerbs = ({ userId, setNavbarState }) => {
       ) : (
         <>
           {verbsGrouped.length === 0 ? (
-            <div className="text-black text-[20px] font-medium">
+            <div className="text-black text-[20px] font-medium text-center">
               {" "}
-              <p>No tienes palabras aun.</p>
-              <p>Hay que crear algunas</p>
+              <p className=" text-normal text-[13px]">No tienes palabras aun.</p>
+              <p className="mb-[100px] text-normal text-[13px]">Hay que crear algunas</p>
               <Button
                 onClick={() => {
                   setNavbarState("createVerb");
