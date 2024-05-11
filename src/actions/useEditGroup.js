@@ -22,7 +22,7 @@ export const updateGroup = async (verbsIds) => {
 
 // con reactQuery
 
-const editarGroup = (currentType) => {
+const useEditarGroup = (currentType) => {
   const queryClient = useQueryClient();
 
   //esta cosa ya la exporta
@@ -44,4 +44,4 @@ const editarGroup = (currentType) => {
   });
 };
 
-export default editarGroup;
+export default useEditarGroup;

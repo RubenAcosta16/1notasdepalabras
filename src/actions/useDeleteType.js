@@ -15,7 +15,7 @@ export const deleteType = async (properties) => {
 
 // con reactQuery
  
-const eliminarType = (currentType) => {
+const useEliminarType = (currentType) => {
     const queryClient=useQueryClient()
 
     //esta cosa ya la exporta 
@@ -41,4 +41,4 @@ const eliminarType = (currentType) => {
       );
 };
 
-export default eliminarType; 
+export default useEliminarType; 

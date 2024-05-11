@@ -51,7 +51,7 @@ export const putVerb = async (verb) => {
 
 // con reactQuery
 
-const editVerb = (currentType) => {
+const useEditVerb = (currentType) => {
   const queryClient = useQueryClient();
 
   //esta cosa ya la exporta
@@ -73,4 +73,4 @@ const editVerb = (currentType) => {
   });
 };
 
-export default editVerb;
+export default useEditVerb;

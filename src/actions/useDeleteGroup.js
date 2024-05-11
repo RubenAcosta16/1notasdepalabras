@@ -17,7 +17,7 @@ export const deleteGroup = async (verbsIds) => {
 
 // con reactQuery
 
-const eliminarGroup = (currentType) => {
+const useEliminarGroup = (currentType) => {
     const queryClient=useQueryClient()
 
     //esta cosa ya la exporta
@@ -42,4 +42,4 @@ const eliminarGroup = (currentType) => {
       );
 };
 
-export default eliminarGroup; 
+export default useEliminarGroup; 

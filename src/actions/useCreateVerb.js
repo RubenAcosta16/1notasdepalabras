@@ -40,7 +40,7 @@ export const postVerb = async (verb) => {
  
 // con reactQuery
 
-const CreateVerb = (currentType) => {
+const useCreateVerb = (currentType) => {
   const queryClient = useQueryClient(); 
 
   //esta cosa ya la exporta
@@ -60,4 +60,4 @@ const CreateVerb = (currentType) => {
   });
 };
 
-export default CreateVerb;
+export default useCreateVerb;

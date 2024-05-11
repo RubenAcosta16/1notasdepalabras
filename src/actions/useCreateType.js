@@ -53,7 +53,7 @@ export const postType = async (type) => {
 
 // con reactQuery
 
-const CreateType = () => {
+const useCreateType = () => {
   const queryClient = useQueryClient();
 
   //esta cosa ya la exporta
@@ -73,4 +73,4 @@ const CreateType = () => {
   });
 };
 
-export default CreateType;
+export default useCreateType;

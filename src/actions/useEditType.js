@@ -46,7 +46,7 @@ export const putType = async (type) => {
 
 // con reactQuery
 
-const editType = () => {
+const useEditType = () => {
   const queryClient = useQueryClient();
 
   //esta cosa ya la exporta
@@ -68,4 +68,4 @@ const editType = () => {
   });
 };
 
-export default editType;
+export default useEditType;

@@ -15,7 +15,7 @@ export const deleteVerb = async (verb) => {
 
 // con reactQuery
 
-const eliminarVerb = (currentType) => {
+const useEliminarVerb = (currentType) => {
     const queryClient=useQueryClient()
 
     //esta cosa ya la exporta
@@ -40,4 +40,4 @@ const eliminarVerb = (currentType) => {
       );
 };
 
-export default eliminarVerb; 
+export default useEliminarVerb; 
