@@ -14,7 +14,7 @@ import { LuPencil } from "react-icons/lu";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Textarea, Input, Button } from "@nextui-org/react";
 
-const editGroups = ({ verbGrouped,refetch }) => {
+const EditGroups = ({ verbGrouped,refetch }) => {
   // const { mutate:mutateDelete, error, isLoading, isSuccess, reset } = deleteGroup(verbGrouped[0].type);
   const [currentType, setCurrentType] = useState({});
 
@@ -210,4 +210,4 @@ const editGroups = ({ verbGrouped,refetch }) => {
   );
 };
 
-export default editGroups;
+export default EditGroups;

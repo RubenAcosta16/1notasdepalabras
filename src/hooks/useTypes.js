@@ -1,40 +1,6 @@
 import { useState, useEffect } from "react";
 import useCurrentUser from "./useCurrentUser";
 
-// const useTypes = () => {
-//   const { data: session, status } = useSession();
-// //   reactquery
-
-//   // Define el estado o cualquier otra lógica que necesites
-//   const { currentUser } = useCurrentUser();
-
-//   useEffect(() => {
-//     const fetchUser = async () => {
-//       try { 
-//         if (currentUser) {
-//             // usar reactquery
-//           const res = await fetch("/api/types/");
-//           const resJSON = await res.json();
-//           setCurrentUser(resJSON);
-//         }
-//       } catch (error) {
-//         console.error("Error fetching user:", error);
-//       }
-//     };
-
-//     // Llama a la función fetchUser solo cuando la sesión esté autenticada y el email esté disponible
-//     fetchUser();
-//   }, [status, session?.user?.email]); // Ejecuta el efecto cuando cambie el estado de la sesión o el email del usuario
-
-// //   if(!currentUser){
-// //     return
-// //   }
-//   // Devuelve los valores o funciones que deseas exponer
-//   return { currentUser };
-// };
-
-// export default useTypes;
-
 import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 

@@ -9,7 +9,7 @@ import { useRef, useState } from "react";
 
 import { FaRegEye,FaRegEyeSlash } from "react-icons/fa";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -147,4 +147,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

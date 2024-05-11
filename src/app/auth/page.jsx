@@ -28,7 +28,7 @@ const quicksand = Quicksand({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const page = ({ pageAction = "register" }) => {
+const Page = ({ pageAction = "register" }) => {
   useKnowLogin();
   // console.log(pageAction)
   const [action, setAction] = useState(pageAction);
@@ -122,4 +122,4 @@ const page = ({ pageAction = "register" }) => {
   );
 };
 
-export default page;
+export default Page;

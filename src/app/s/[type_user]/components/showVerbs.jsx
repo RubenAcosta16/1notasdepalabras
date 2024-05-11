@@ -20,7 +20,7 @@ import "./bgs.css";
 
 import { Tooltip, Skeleton } from "@nextui-org/react";
 
-const showVerbs = ({ currentType }) => {
+const ShowVerbs = ({ currentType }) => {
   //   console.log(userId);
   //   console.log(type);
 
@@ -277,4 +277,4 @@ const showVerbs = ({ currentType }) => {
   );
 };
 
-export default showVerbs;
+export default ShowVerbs;

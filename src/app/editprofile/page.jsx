@@ -30,7 +30,7 @@ const quicksand = Quicksand({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const page = () => {
+const Page = () => {
   // const { data: session, status } = useSession();
 
   const { currentUser, status, setCurrentUser } = useCurrentUser();
@@ -327,4 +327,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

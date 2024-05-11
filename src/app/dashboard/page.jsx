@@ -34,7 +34,7 @@ const quicksand = Quicksand({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const page = () => {
+const Page = () => {
   const { currentType, setCurrentType, verbsLength } = useCurrentTypeState();
   /**
    * seran 3 paginas
@@ -208,4 +208,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

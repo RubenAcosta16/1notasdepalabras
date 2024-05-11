@@ -15,7 +15,7 @@ const quicksand = Quicksand({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
   // console.log(params.type_user);
 
   const newParams = params.type_user.split("%24%24");
@@ -79,4 +79,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default Page;

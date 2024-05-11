@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import useCurrentUser from '@/hooks/useCurrentUser'
 
 
-const authUser = ({ children }) => {
+const AuthUser = ({ children }) => {
 //   console.log("layout");
 
   const { data: session, status, update } = useSession();
@@ -46,4 +46,4 @@ const authUser = ({ children }) => {
   return <>{children}</>;
 };
 
-export default authUser;
+export default AuthUser;
