@@ -14,8 +14,8 @@ import AddFiles from "@/app/components/AddFiles";
 
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 
-import editType from "@/actions/editType";
-import deleteType from "@/actions/deleteType";
+import editType from "@/actions/useEditType";
+import deleteType from "@/actions/useDeleteType";
 
 const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
   const {

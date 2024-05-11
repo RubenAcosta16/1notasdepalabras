@@ -3,8 +3,8 @@ import EditVerbs from "./EditVerbs";
 
 import PanelEditDash from "@/app/components/PanelEditDash";
 
-import deleteGroup from "@/actions/deleteGroup";
-import editGroup from "@/actions/editGroup";
+import deleteGroup from "@/actions/useDeleteGroup";
+import editGroup from "@/actions/useEditGroup";
 
 import { useState,useEffect } from "react";
 import axios from "axios";

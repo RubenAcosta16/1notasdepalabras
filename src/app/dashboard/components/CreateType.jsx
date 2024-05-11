@@ -12,7 +12,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 
-import createType from "@/actions/createType";
+import createType from "@/actions/useCreateType";
 
 import AddFiles from '@/app/components/AddFiles'
 

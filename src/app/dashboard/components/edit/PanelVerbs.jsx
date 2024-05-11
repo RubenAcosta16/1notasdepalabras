@@ -13,8 +13,8 @@ import PanelEditDash from "@/app/components/PanelEditDash";
 
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 
-import editVerb from "@/actions/editVerb";
-import deleteVerb from "@/actions/deleteVerb";
+import editVerb from "@/actions/useEditVerb";
+import deleteVerb from "@/actions/useDeleteVerb";
 
 import AddFiles from "@/app/components/AddFiles";
 
