@@ -24,7 +24,9 @@ const Page = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const [isVisible, setIsVisible] = useState(false);
+  const [isVisible2, setIsVisible2] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
+  const toggleVisibility2 = () => setIsVisible2(!isVisible2);
 
   const [matchPassword, setMatchPassword] = useState(true);
 
@@ -88,7 +90,7 @@ const Page = () => {
       onSubmit={handleSubmit}
       className="flex flex-col gap-[10px]"
     >
-      <p className="text-[20px] font-semibold">Let´s get started</p>
+      <p className="text-[20px] font-semibold text-center">Let´s get started</p>
 
       {/* <label htmlFor="">Username</label>
         <input
@@ -109,6 +111,7 @@ const Page = () => {
         onChange={(e) => {
           setUsername(e.target.value);
         }}
+        className="w-full lg:w-[500px] mx-auto"
       />
 
       {/* {errors.username && <span>{errors.username.message}</span>} */}
@@ -130,6 +133,7 @@ const Page = () => {
         onChange={(e) => {
           setEmail(e.target.value);
         }}
+        className="w-full lg:w-[500px] mx-auto"
       />
 
       {/* {errors.email && <span>{errors.email.message}</span>}
@@ -165,7 +169,7 @@ const Page = () => {
           </button>
         }
         type={isVisible ? "text" : "password"}
-        className="max-w-xs"
+        className="w-full lg:w-[500px] mx-auto"
       />
 
       {/* {errors.password && <span>{errors.password.message}</span>} */}
@@ -179,7 +183,7 @@ const Page = () => {
           })}
         /> */}
       <Input
-        type="password"
+        // type="password"
         variant="underlined"
         label="Confirm Password"
         name="password"
@@ -187,6 +191,22 @@ const Page = () => {
         onChange={(e) => {
           setPasswordConfirm(e.target.value);
         }}
+
+        endContent={
+          <button
+            className="focus:outline-none"
+            type="button"
+            onClick={toggleVisibility2}
+          >
+            {isVisible2 ? (
+              <FaRegEyeSlash className="text-xl text-default-400 pointer-events-none" />
+            ) : (
+              <FaRegEye className="text-xl text-default-400 pointer-events-none" />
+            )}
+          </button>
+        }
+        type={isVisible2 ? "text" : "password"}
+        className="w-full lg:w-[500px] mx-auto"
       />
 
       {!matchPassword && <span>Las contraseñas deben ser iguales</span>}
@@ -194,7 +214,7 @@ const Page = () => {
       {/* que sea azulito */}
       <button
         type="submit"
-        className="text-white text-[16px] mt-[30px] font-normal flex-grow rounded-full text-center py-2 mx-5 bg-pink-600 hover:bg-pink-500"
+        className="text-white text-[16px] mt-[30px] font-normal flex-grow rounded-full text-center py-2 mx-5 bg-pink-600 hover:bg-pink-500 w-full lg:w-[500px] mx-auto"
       >
         Register
       </button>

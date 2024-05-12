@@ -25,7 +25,7 @@ const GoogleButton = ({action,buttonCode}) =>
     // .finally(() => setIsLoading(false));
   }
 
-  return <button onClick={socialSignIn}>{buttonCode}</button>;
+  return <button onClick={socialSignIn} className="hover:scale-95">{buttonCode}</button>;
 };
 
 export default GoogleButton;

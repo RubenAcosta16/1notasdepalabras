@@ -135,7 +135,7 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
 
   // console.log(width - 44);
   // when its mobile
-  const variableRestarMin = 60;
+  const variableRestarMin = 44;
   // when its full
   const variableRestar = 51;
 
@@ -223,7 +223,7 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
     enter: i => ({ y: 0,opacity:1, transition: { duration: 0.2 ,delay:0.2,type: "spring"} }),
     exit: 
       i => ({ y: -10,opacity:0, transition: { duration: 0.2 ,delay:0.5,type: "spring"} })
-    ,
+    , 
   };
 
   return (
@@ -242,7 +242,7 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
         <ul className="h-1/2 flex flex-col justify-center gap-14 mt-10">
           <motion.button
             onClick={animations}
-            className="sm:text-[25px] text-[30px] fill-white absolute right-20 top-[26px]"
+            className="sm:text-[25px] text-[30px] fill-white absolute right-24 top-[26px]"
             variants={btn_mode}
             initial="initial"
             animate="enter"

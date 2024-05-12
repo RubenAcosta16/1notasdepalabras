@@ -129,7 +129,7 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
         {/* <p>Name: {verb.name}</p> */}
         <p className="mb-[5px] text-normal text-[16px] font-semibold text-black">
           Editar tipo
-        </p>
+        </p> 
 
         <Input
           type="text"

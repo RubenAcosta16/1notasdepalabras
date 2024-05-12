@@ -70,34 +70,38 @@ export default function NavBar() {
         Notas de palabras
       </Link>
       <div className="shadow-md shadow-black">
-        {!isActive ? (
-          // barras
-          <motion.div
-            onClick={() => {
-              setIsActive(true);
-            }}
-            className="background-color-nav-btn fixed top-3 right-4 w-14 h-14 flex justify-center items-center rounded-full cursor-pointer z-10"
-            whileHover={{ scale: 1.1 }}
-          >
+        <motion.div
+          onClick={async () => {
+            setIsActive(!isActive);
+          }}
+          className="background-color-nav-btn fixed top-3 right-4 w-14 h-14 flex justify-center items-center rounded-full cursor-pointer z-20"
+          whileHover={{ scale: 1.1, transition: { duration: 0.1 } }}
+        >
+          {!isActive ? (
+            // barras
             <AiOutlineBars className="text-[26px]" />
-          </motion.div>
-        ) : (
-          // cruz
-          <motion.div
-            className="background-color-nav-btn fixed top-3 right-4 w-14 h-14 flex justify-center items-center rounded-full  cursor-pointer z-10"
+          ) : (
+            // cruz
+            <RxCross2 className="size-[26px]"></RxCross2>
+          )}
+          {/* <AiOutlineBars className="text-[26px]" /> */}
+        </motion.div>
+
+        {/* <motion.div
+            className="background-color-nav-btn fixed top-3 right-4 w-14 h-14 flex justify-center items-center rounded-full cursor-pointer z-10"
             onClick={() => {
-              setIsActive(false);
-            }}
+              setIsActive(!isActive);
+            }} 
             whileHover={{ scale: 1.1 }}
           >
             <RxCross2 className="size-[26px]"></RxCross2>
-          </motion.div>
-        )}
+          </motion.div> */}
       </div>
 
       <AnimatePresence>
         {isActive && (
           <div ref={navRef}>
+
             <Nav
               handleChangeTheme={handleChangeTheme}
               currentTheme={theme}

@@ -10,7 +10,7 @@
     @apply bg-slate-700
 }
 
-
+ 
 .bg-main{
     @apply bg-slate-100 dark:bg-[#222831]
 }

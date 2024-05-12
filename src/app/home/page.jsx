@@ -66,7 +66,7 @@ const Page = () => {
       )}
     >
       <div className="text-center mt-[-45px] pt-[120px] text-[22px] z-20 relative">
-        <div className="hidden md:block w-full">
+        <div className=" w-full">
           {status == "loading" ? (
             <Skeleton
               className={"h-[170px] w-[170px] rounded-full mx-auto"}

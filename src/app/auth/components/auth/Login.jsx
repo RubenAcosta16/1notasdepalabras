@@ -10,7 +10,7 @@ import { useRef, useState } from "react";
 import { FaRegEye,FaRegEyeSlash } from "react-icons/fa";
 
 const Page = () => {
-  const router = useRouter();
+  const router = useRouter(); 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -62,11 +62,11 @@ const Page = () => {
 
   return (
     <form
-      className="flex flex-col gap-[10px] h-[374px]"
+      className="flex flex-col gap-[10px]"
       action=""
       onSubmit={handleSubmit}
     >
-      <p className="text-[20px] font-semibold">Welcome Back</p>
+      <p className="text-[20px] font-semibold text-center">Welcome Back</p>
       {/* <label htmlFor="">Username</label>
         <input
           type="text"
@@ -89,6 +89,7 @@ const Page = () => {
         onChange={(e) => {
           setEmail(e.target.value);
         }}
+        className="w-full lg:w-[500px] mx-auto"
       />
       {/* <label htmlFor="">Email</label>
         <input
@@ -117,7 +118,8 @@ const Page = () => {
         value={password}
         onChange={(e) => {
           setPassword(e.target.value);
-        }}
+        }} 
+
         endContent={
           <button
             className="focus:outline-none"
@@ -132,17 +134,17 @@ const Page = () => {
           </button>
         }
         type={isVisible ? "text" : "password"}
-        className="max-w-xs"
+        className="w-full lg:w-[500px] mx-auto"
       />
 
       {/* esta cosa ya tiene espacio por el gap asi que le puse mas con un mt */}
       <button
         type="submit"
-        className="text-white text-[16px] mt-[30px] font-normal  rounded-full text-center py-2 mx-5 bg-pink-600 hover:bg-pink-500"
+        className="text-white text-[16px] mt-[30px] font-normal  rounded-full text-center py-2 mx-5 bg-pink-600 hover:bg-pink-500 w-full lg:w-[337px] mx-auto"
       >
         login
       </button>
-      <p>con framer motion hacer que se deslice</p>
+      {/* <p>con framer motion hacer que se deslice</p> */}
     </form>
   );
 };
