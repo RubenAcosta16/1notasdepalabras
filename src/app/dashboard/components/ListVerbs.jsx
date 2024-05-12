@@ -41,6 +41,14 @@ const ListVerbs = ({ userId, setNavbarState }) => {
     lenght();
   }, [currentType]);
 
+  useEffect(() => {
+    refetch();
+    // // si al cargar los tipos, si estas cargando los tipos del creador
+    // if ("62291337-2091-411a-b42b-6819d867212d" == userId) {
+    //   setCreatorId("crtr");
+    // }
+  }, [userId]);
+
   // if (isLoading) {
   //   return <div>Loading...</div>;
   // }
