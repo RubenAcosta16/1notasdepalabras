@@ -65,7 +65,7 @@ const PanelEditDash = ({ edit, setEdit, children }) => {
               type="button"
               // color="default"
               // size="sm"
-              className="fixed top-[100px] right-[10%] lg:right-[19%] text-[20px] hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-full w-[32px] h-[32px] flex flex-col justify-center items-center"
+              className="fixed top-[160px] lg:top-[100px] right-[10%] lg:right-[19%] text-[20px] hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-full w-[32px] h-[32px] flex flex-col justify-center items-center"
               onClick={() => setEdit(!edit)}
             >
               <RxCross2 className="inline"></RxCross2>

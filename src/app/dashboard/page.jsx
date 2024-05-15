@@ -1,9 +1,9 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import clsx from "clsx";
 
-import { useClickAway } from "react-use";
+import { useClickAway, useWindowSize } from "react-use";
 
 import { Noto_Sans_Cham, Quicksand } from "next/font/google";
 import { Button, Skeleton } from "@nextui-org/react";
@@ -51,10 +51,12 @@ const Page = () => {
 
   const { currentUser, status } = useCurrentUser();
 
+  const { width } = useWindowSize();
+
   const panelRef = useRef(null);
   useClickAway(panelRef, () => {
     // console.log("OUTSIDE CLICKED");
-    setNavbarTypes(!navbarTypes);
+    setNavbarTypes(false);
   });
 
   // if (status == "authenticated" && currentUser.id) {
@@ -93,6 +95,8 @@ const Page = () => {
     },
   };
 
+  // console.log(navbarTypes)
+
   return (
     <div
       className={`${quicksand.className} relative flex flex-col lg:flex-row  pb-[35px] lg:pb-0`}
@@ -104,12 +108,14 @@ const Page = () => {
         setNavbarTypes={setNavbarTypes}
         loadingDisableButton={status !== "authenticated" || !currentUser.id}
       >
-        <ListTypes
-          userId={currentUser.id}
-          setNavbarTypes={setNavbarTypes}
-          navbarTypes={navbarTypes}
-          navbarState={navbarState}
-        ></ListTypes>
+        {width > 1024 && (
+          <ListTypes
+            userId={currentUser.id}
+            setNavbarTypes={setNavbarTypes}
+            navbarTypes={navbarTypes}
+            navbarState={navbarState}
+          ></ListTypes>
+        )}
       </NavbarState>
       {/* crear verbos */}
 
@@ -174,25 +180,29 @@ const Page = () => {
 
             {/* {navbarState == "editTypes" && } */}
             {/* de mientras hiden pero haber como me las ingenio para que sea un navbar left */}
-            <AnimatePresence>
-              {navbarTypes && (
-                <motion.div
-                ref={panelRef}
-                  variants={menuSlide}
-                  initial="initial"
-                  animate="enter"
-                  exit="exit"
-                >
-                  {/* <PanelEditDash edit={navbarTypes} setEdit={setNavbarTypes}> */}
-                  <ListTypes
-                    userId={currentUser.id}
-                    setNavbarTypes={setNavbarTypes}
-                    navbarTypes={navbarTypes}
-                  ></ListTypes>
-                  {/* </PanelEditDash> */}
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {width <= 1024 && (
+              <AnimatePresence>
+                {navbarTypes && (
+                  <motion.div
+                    ref={panelRef}
+                    variants={menuSlide}
+                    initial="initial"
+                    animate="enter"
+                    exit="exit"
+                  >
+                    {/* <PanelEditDash edit={navbarTypes} setEdit={setNavbarTypes}> */}
+
+                    <ListTypes
+                      userId={currentUser.id}
+                      setNavbarTypes={setNavbarTypes}
+                      navbarTypes={navbarTypes}
+                    ></ListTypes>
+
+                    {/* </PanelEditDash> */}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            )}
           </>
         )}
 

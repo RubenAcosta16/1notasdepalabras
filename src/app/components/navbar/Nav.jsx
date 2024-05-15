@@ -82,7 +82,7 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
                       className="rounded-full relative object-contain"
                     />
                   )}
-                  <span className="hidden md:inline text-[15px]" style={shadow}>
+                  <span className="hidden md:inline text-[15px] line-clamp-1 hover:line-clamp-none" style={shadow}>
                     {currentUser.username}
                   </span>
                 </div>

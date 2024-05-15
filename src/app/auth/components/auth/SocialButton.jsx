@@ -13,12 +13,13 @@ const GoogleButton = ({action,buttonCode}) =>
       // console.log(callback);
       // if (callback?.error) {
       //   toast.error('Invalid credentials!');
-      // }
+      // } 
 
       // if (callback?.ok) {
       router.push("/dashboard");
       // }
     }).catch((error) => {
+      console.log('went an error')
       console.error(error);
       router.push("/auth/login");
   });

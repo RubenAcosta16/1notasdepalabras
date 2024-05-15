@@ -89,7 +89,9 @@ const NavbarTypes = ({
       <Button
         isDisabled={loadingDisableButton}
         className={`${navButton} lg:hidden`}
-        onClick={() => setNavbarTypes(!navbarTypes)}
+        onClick={() => {
+          setNavbarTypes(!navbarTypes)
+        }}
       >
         <span className={navText}>Edit types</span>{" "}
         <RiEditBoxFill className="mx-auto lg:mx-0 inline" />

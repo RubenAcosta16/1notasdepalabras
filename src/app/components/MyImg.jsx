@@ -12,11 +12,11 @@ const MyImg = ({ name, img, height, types = false }) => {
           radius="lg"
           // width="100%"
           // alt={item.title}
-          className={`w-full object-cover h-[${height}px] w-[264px] rounded-xl z-10`}
+          className={`w-full object-cover h-[${height}px] w-[220px] rounded-xl z-10`}
           src={img}
           alt={name}
-          width={500}
-          height={500}
+          width={height}
+          height={264}
         />
       ) : (
         <>
