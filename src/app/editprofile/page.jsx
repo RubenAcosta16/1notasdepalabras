@@ -21,6 +21,8 @@ import { useForm } from "react-hook-form";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 
+import {useTitle} from 'react-use';
+
 const noto_Sans_Cham = Noto_Sans_Cham({
   subsets: ["latin"],
   weight: ["300", "500", "700", "900"],
@@ -31,6 +33,7 @@ const quicksand = Quicksand({
 });
 
 const Page = () => {
+  useTitle("Editar perfil")
   // const { data: session, status } = useSession();
 
   const { currentUser, status, setCurrentUser } = useCurrentUser();

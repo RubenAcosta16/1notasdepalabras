@@ -4,6 +4,8 @@ import clsx from "clsx";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 
+import toast from "@/actions/toast/toast";
+
 import { CiImageOn } from "react-icons/ci";
 import { LuPencil } from "react-icons/lu";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -35,8 +37,8 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
 
   const { currentType, setCurrentType } = useCurrentTypeState();
 
-  const { mutate: mutateEdit, error, isLoading, isSuccess, reset } = editType();
-  const { mutate: mutateDelete, isLoading: deleteLoading } =
+  const { mutate: mutateEdit, error:errorEdit, isLoading, isSuccess, reset } = editType();
+  const { mutate: mutateDelete,error:errorDelete, isLoading: deleteLoading } =
     deleteType(currentType);
 
   const [buttonDelete, setButtonDelete] = useState(false);
@@ -49,7 +51,7 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
 
   // para las imagenes
   const onDrop = useCallback((acceptedFiles) => {
-    // console.log(acceptedFiles[0]);
+
     // Do something with the files
     setSendImg(acceptedFiles[0]);
     // setImg(acceptedFiles[0])
@@ -62,9 +64,7 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // console.log(name)
-    // console.log(description)
-    // console.log(group)
+
 
     const formData = new FormData();
     formData.append("img", sendImg);
@@ -84,10 +84,9 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
           // setName("");
           // setDescription("");
           // setGroup("");
-          console.warn("tipo editado");
+          toast("Tipo editado");
           // if(sendImg)setImg(URL.createObjectURL(sendImg))
           if (sendImg) {
-            // console.log("si tiene img")
             setImg(URL.createObjectURL(sendImg));
           }
           if (borrarImg) {
@@ -98,7 +97,7 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
           setCurrentType(name);
         },
         onError: () => {
-          console.error(error.response.data);
+          toast(errorEdit.response.data,false)
         },
       }
     );
@@ -109,11 +108,11 @@ const PanelTypes = ({ userId, typeThings, edit, setEdit, typeId }) => {
       { typeId, userId, name },
       {
         onSuccess: () => {
-          // setName("");
-          // setDescription("");
-          // setGroup("");
-          console.warn("tipo eliminado");
+          toast('Tipo editado')
           setCurrentType("");
+        },
+        onError: () => {
+          toast(errorDelete.response.data,false)
         },
       }
     );

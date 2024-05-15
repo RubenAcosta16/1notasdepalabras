@@ -4,6 +4,8 @@ import ShowVerbs from "./components/showVerbs";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+import {useTitle} from 'react-use';
+
 import { Noto_Sans_Cham, Quicksand } from "next/font/google";
 
 const noto_Sans_Cham = Noto_Sans_Cham({
@@ -17,6 +19,7 @@ const quicksand = Quicksand({
 
 const Page = ({ params }) => {
   // console.log(params.type_user);
+
 
   const newParams = params.type_user.split("%24%24");
   const typeUser = newParams[0];
@@ -62,6 +65,8 @@ const Page = ({ params }) => {
     return <div>Loading...</div>;
   }
   //   console.log(currentUser.id)
+
+  useTitle(currentType.name)
 
   return (
     <div className={`${quicksand.className} relative font-medium mt-[-56px] `}>

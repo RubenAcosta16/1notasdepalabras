@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 
+import toast from "@/actions/toast/toast";
+
 import { Textarea, Input, Button } from "@nextui-org/react";
 import { CiImageOn } from "react-icons/ci";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -14,7 +16,7 @@ import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 
 import createType from "@/actions/useCreateType";
 
-import AddFiles from '@/app/components/AddFiles'
+import AddFiles from "@/app/components/AddFiles";
 
 const CreateVerb = () => {
   const { currentUser } = useCurrentUser();
@@ -41,7 +43,6 @@ const CreateVerb = () => {
 
   // para las imagenes
   const onDrop = useCallback((acceptedFiles) => {
-    // console.log(acceptedFiles[0]);
     // Do something with the files
     setSendImg(acceptedFiles[0]);
   }, []);
@@ -53,7 +54,7 @@ const CreateVerb = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!currentUser) {
-      console.error("usuario no encontrado");
+      toast("Usuario no encontrado", false);
       return;
     }
 
@@ -63,11 +64,10 @@ const CreateVerb = () => {
     // }
 
     if (!currentUser) {
-      console.error("usuario no encontrado");
+      toast("Usuario no encontrado", false);
       return;
     }
 
-    // console.log(data.img[0])
     const formData = new FormData();
     formData.append("img", sendImg);
 
@@ -100,15 +100,14 @@ const CreateVerb = () => {
 
           setCurrentType(name);
 
-          console.warn("tipo creado");
+          toast("Tipo creado");
         },
         onError: () => {
-          console.error(error.response.data);
+          toast(error.response.data, false);
         },
       }
     );
   };
-  // console.log(!acceptedFiles)
 
   return (
     <form
@@ -187,7 +186,13 @@ const CreateVerb = () => {
       </div> */}
       {/* {acceptedFiles.length !== 0 && "Solo se puede enviar 1 archivo"} */}
 
-      <AddFiles getRootProps={getRootProps} getInputProps={getInputProps} sendImg={sendImg} setSendImg={setSendImg} isDragActive={isDragActive}></AddFiles>
+      <AddFiles
+        getRootProps={getRootProps}
+        getInputProps={getInputProps}
+        sendImg={sendImg}
+        setSendImg={setSendImg}
+        isDragActive={isDragActive}
+      ></AddFiles>
 
       <Button
         type="submit"

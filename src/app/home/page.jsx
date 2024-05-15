@@ -14,6 +14,7 @@ import LoadingCard from "./components/LoadingCard";
 
 import { Noto_Sans_Cham, Quicksand } from "next/font/google";
 
+
 import "./components/bg_zigzag.css";
 
 const noto_Sans_Cham = Noto_Sans_Cham({

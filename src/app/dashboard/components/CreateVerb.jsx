@@ -4,7 +4,9 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
-import clsx from "clsx"; 
+import clsx from "clsx";
+
+import toast from "@/actions/toast/toast";
 
 import { Textarea, Input, Button } from "@nextui-org/react";
 import { CiImageOn } from "react-icons/ci";
@@ -14,7 +16,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
 import createVerb from "@/actions/useCreateVerb";
 
-import AddFiles from '@/app/components/AddFiles'
+import AddFiles from "@/app/components/AddFiles";
 
 const CreateVerb = () => {
   const { currentUser } = useCurrentUser();
@@ -24,10 +26,6 @@ const CreateVerb = () => {
   const { currentType, setCurrentType } = useCurrentTypeState();
 
   const { mutate, error, isLoading, isSuccess } = createVerb(currentType);
-
-
-
-
 
   // const refName = useRef(null);
   // const refDescription = useRef(null);
@@ -45,7 +43,6 @@ const CreateVerb = () => {
 
   // para las imagenes
   const onDrop = useCallback((acceptedFiles) => {
-    // console.log(acceptedFiles[0]);
     // Do something with the files
     setSendImg(acceptedFiles[0]);
   }, []);
@@ -56,11 +53,10 @@ const CreateVerb = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!currentUser) {
-      console.error("usuario no encontrado");
+      toast("Usuario no encontrado", false);
       return;
     }
 
-    // console.log({
     //   id: uuidv4(),
     //   name: data.name,
     //   userId: currentUser.id,
@@ -102,28 +98,28 @@ const CreateVerb = () => {
               setGroup("");
             }
 
-            console.warn("verbo creado");
+            toast("Palabra creada");
           },
           onError: () => {
-            console.error(error.response.data);
+            toast(error.response.data, false);
           },
         }
       );
     } else {
-      console.error("Necesitas tener un tipo para crear un verbo");
+      toast("Necesitas tener un tipo para crear un verbo".response.data, false);
     }
   };
-
-  // console.log(errors.name?.message)
 
   return (
     <form
       action=""
       onSubmit={onSubmit}
       className="mt-[70px] bg-squaresList relative flex flex-col items-center w-full p-10 px-5 lg:px-20 gap-[15px] rounded-tl-[50px] "
-      style={{boxShadow:"0 5px 15px rgba(0, 0, 0, 0.7)"}}
+      style={{ boxShadow: "0 5px 15px rgba(0, 0, 0, 0.7)" }}
     >
-      <h1 className="mb-[5px] text-[20px] font-semibold text-normal">Crea una palabra</h1>
+      <h1 className="mb-[5px] text-[20px] font-semibold text-normal">
+        Crea una palabra
+      </h1>
 
       <Input
         type="text"
@@ -141,7 +137,7 @@ const CreateVerb = () => {
         variant="underlined"
         label="Descripción"
         // placeholder="Enter your description"
-        
+
         className="w-full lg:w-[500px] mx-auto"
         minRows={3}
         value={description}
@@ -211,7 +207,13 @@ const CreateVerb = () => {
       </div> */}
       {/* {acceptedFiles.length !== 0 && "Solo se puede enviar 1 archivo"} */}
 
-      <AddFiles getRootProps={getRootProps} getInputProps={getInputProps} sendImg={sendImg} setSendImg={setSendImg} isDragActive={isDragActive}></AddFiles>
+      <AddFiles
+        getRootProps={getRootProps}
+        getInputProps={getInputProps}
+        sendImg={sendImg}
+        setSendImg={setSendImg}
+        isDragActive={isDragActive}
+      ></AddFiles>
 
       <Button
         type="submit"

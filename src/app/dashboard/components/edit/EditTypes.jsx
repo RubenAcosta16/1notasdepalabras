@@ -34,7 +34,8 @@ const EditTypes = ({ userId, type, setNavbarTypes, navbarTypes }) => {
       })}
       style={{ boxShadow: "0 5px 15px rgba(0, 0, 0, 0.4)" }}
     >
-      <MyImg name={name} img={img} height={125} types={true}></MyImg>
+
+        <MyImg name={name} img={img} height={125} types={true}></MyImg>
 
       <Button
         type="button"

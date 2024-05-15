@@ -9,6 +9,8 @@ import { FaRegTrashAlt } from "react-icons/fa";
 
 import { Textarea, Input, Button } from "@nextui-org/react";
 
+import toast from "@/actions/toast/toast";
+
 import PanelEditDash from "@/app/components/PanelEditDash";
 
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
@@ -38,7 +40,7 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit, refetch }) => {
     isSuccess,
     reset,
   } = editVerb(currentType);
-  const { mutate: mutateDelete } = deleteVerb(currentType);
+  const { mutate: mutateDelete,error:errorDelete } = deleteVerb(currentType);
 
   const [sendImg, setSendImg] = useState(null);
   // false no lo borra
@@ -47,7 +49,6 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit, refetch }) => {
 
   // para las imagenes
   const onDrop = useCallback((acceptedFiles) => {
-    // console.log(acceptedFiles[0]);
     // Do something with the files
     setSendImg(acceptedFiles[0]);
     setBorrarImg(false);
@@ -59,9 +60,7 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit, refetch }) => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // console.log(name)
-    // console.log(description)
-    // console.log(group)
+
 
     const formData = new FormData();
     formData.append("img", sendImg);
@@ -78,12 +77,9 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit, refetch }) => {
       },
       {
         onSuccess: () => {
-          // setName("");
-          // setDescription("");
-          // setGroup("");
-          console.warn("verbo editado");
+
+          toast('Palabra editada')
           if (sendImg) {
-            // console.log("si tiene img")
             setImg(URL.createObjectURL(sendImg));
           }
           if (borrarImg) {
@@ -94,7 +90,7 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit, refetch }) => {
           refetch();
         },
         onError: () => {
-          console.error(error.response.data);
+          toast(error.response.data,false)
         },
       }
     );
@@ -105,10 +101,11 @@ const PanelVerbs = ({ verbThings, verbId, edit, setEdit, refetch }) => {
       { verbId },
       {
         onSuccess: () => {
-          // setName("");
-          // setDescription("");
-          // setGroup("");
-          console.warn("verbo eliminado");
+
+          toast('Palabra eliminada')
+        },
+        onError: () => {
+          toast(errorDelete.response.data,false)
         },
       }
     );

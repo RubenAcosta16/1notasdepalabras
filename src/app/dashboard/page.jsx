@@ -3,12 +3,14 @@ import { useForm } from "react-hook-form";
 import { useState, useEffect, useRef } from "react";
 import clsx from "clsx";
 
-import { useClickAway, useWindowSize } from "react-use";
+import { useClickAway, useWindowSize, useTitle } from "react-use";
 
 import { Noto_Sans_Cham, Quicksand } from "next/font/google";
 import { Button, Skeleton } from "@nextui-org/react";
 
 import { motion, AnimatePresence } from "framer-motion";
+
+import { ToastContainer } from "react-toastify";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useCurrentTypeState from "@/hooks/useCurrentTypeState";
@@ -20,7 +22,11 @@ import ListVerbs from "./components/ListVerbs";
 import ListTypes from "./components/ListTypes";
 import NavbarState from "./components/NavbarState";
 
+// import toast from '@/actions/toast/toast'
+
 import { PanelEditDash } from "@/app/components/PanelEditDash";
+
+import "react-toastify/dist/ReactToastify.css";
 // import NavbarTypes from './components/NavbarTypes'
 
 // import useTypes from "@/hooks/useTypes";
@@ -35,6 +41,7 @@ const quicksand = Quicksand({
 });
 
 const Page = () => {
+  useTitle("Edit dashboard");
   const { currentType, setCurrentType, verbsLength } = useCurrentTypeState();
   /**
    * seran 3 paginas
@@ -52,6 +59,8 @@ const Page = () => {
   const { currentUser, status } = useCurrentUser();
 
   const { width } = useWindowSize();
+
+
 
   const panelRef = useRef(null);
   useClickAway(panelRef, () => {
@@ -214,6 +223,9 @@ const Page = () => {
 
         {/*  */}
       </div>
+      <ToastContainer
+
+      />
     </div>
   );
 };
