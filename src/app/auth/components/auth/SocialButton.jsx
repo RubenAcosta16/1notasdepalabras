@@ -8,7 +8,7 @@ const GoogleButton = ({ children, action }) => {
 
   async function socialSignIn() {
     // ver que retorna sign in y hacerlo como arriba, osea sin el .then para recoger lo que retorna y de pura casualidad ver si no son los datos del usuario para asi registrarlos en la db
-    signIn(action, { redirect: false })
+    await signIn(action, { redirect: false })
       .then((callback) => {
         // console.log(callback);
         // if (callback?.error) {
