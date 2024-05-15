@@ -15,22 +15,13 @@ import NavFunctions from "./NavFunctions";
 import ShowImg from "./ShowImg";
 import VerbCard from "./VerbCard";
 import LoadingCard from "./LoadingCard";
+import Slider from "./Slider";
 
 import "./bgs.css";
 
 import { Tooltip, Skeleton } from "@nextui-org/react";
 
 const ShowVerbs = ({ currentType }) => {
-  //   console.log(userId);
-  //   console.log(type);
-
-  // mandar a llamar type para ver si pide con grupos
-  // const [currentType, setCurrentType] = useState({})
-
-  // if (!userId) {
-  //   return <div>Loading...</div>;
-  // }
-
   const {
     verbs,
     error,
@@ -74,35 +65,11 @@ const ShowVerbs = ({ currentType }) => {
     }, 3000);
   }
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  //   console.log(status);
-  // console.log(verbs);
-  // if (verbs.length == 0) {
-  //   return <div>Sin verbos</div>;
-  // }
-
   const verbsGrouped = useGroupVerbs(verbs);
 
-  const slideVerbs = {
-    initial: {
-      x: 100,
-      opacity: 0,
-      transition: { duration: 0.1 },
-    },
-    enter: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.1 },
-    },
-    exit: {
-      x: -100,
-      opacity: 0,
-      transition: { duration: 0.1 },
-    },
-  };
+  
+
+
 
   return (
     <div className="bg-pattern text-white pt-[56px]">
@@ -202,57 +169,70 @@ const ShowVerbs = ({ currentType }) => {
               <p>Sin verbos</p>
             ) : (
               <>
-                {!currentType.hasGroup &&
-                  (functionNav == "Normal" ||
-                    functionNav == "Significados" ||
-                    functionNav == "VerbsPorFecha") && (
+                <Slider
+                  items={[
                     <>
-                      {verbs.map((verb, index) => (
+                      {!currentType.hasGroup &&
+                        (functionNav == "Normal" ||
+                          functionNav == "Significados" ||
+                          functionNav == "VerbsPorFecha") && (
+                          <>
+                            {verbs.map((verb, index) => (
+                              <>
+                                <VerbCard
+                                  key={verb.id}
+                                  verb={verb}
+                                  functionNav={functionNav}
+                                  hasImg={currentType.hasImg}
+                                  index={index}
+                                ></VerbCard>
+                              </>
+                            ))}
+                          </>
+                        )}
+
+                      {currentType.hasGroup &&
+                        (functionNav == "Normal" ||
+                          functionNav == "Significados") &&
+                        verbsGrouped.map((verbGrouped) => (
+                          <>
+                            <VerbsGrouped
+                              functionNav={functionNav}
+                              key={verbGrouped[0].name}
+                              verbGrouped={verbGrouped}
+                              hasImg={currentType.hasImg}
+                            ></VerbsGrouped>
+                          </>
+                        ))}
+                    </>,
+                    <>
+                      {/* random */}
+                      {functionNav == "Aleatorio" ||
+                      functionNav == "SignificadosAleatorio" ? (
                         <>
-                          <VerbCard
-                            key={verb.id}
-                            verb={verb}
-                            functionNav={functionNav}
-                            hasImg={currentType.hasImg}
-                            index={index}
-                          ></VerbCard>
+                          <AnimatePresence>
+                            {verbsRandom.map((verb, index) => (
+                              <VerbCard
+                                key={verb.id}
+                                verb={verb}
+                                functionNav={functionNav}
+                                hasImg={currentType.hasImg}
+                                index={index}
+                              ></VerbCard>
+                            ))}
+                          </AnimatePresence>
                         </>
-                      ))}
-                    </>
-                  )}
+                      ) : (
+                        ""
+                      )}
+                    </>,
+                  ]}
+                  functionNav={functionNav}
+                ></Slider>
 
-                {currentType.hasGroup &&
-                  (functionNav == "Normal" || functionNav == "Significados") &&
-                  verbsGrouped.map((verbGrouped) => (
-                    <>
-                      <VerbsGrouped
-                        functionNav={functionNav}
-                        key={verbGrouped[0].name}
-                        verbGrouped={verbGrouped}
-                        hasImg={currentType.hasImg}
-                      ></VerbsGrouped>
-                    </>
-                  ))}
+                {/* 0 */}
 
-                {/* random */}
-                {functionNav == "Aleatorio" ||
-                functionNav == "SignificadosAleatorio" ? (
-                  <>
-                    <AnimatePresence>
-                      {verbsRandom.map((verb, index) => (
-                        <VerbCard
-                          key={verb.id}
-                          verb={verb}
-                          functionNav={functionNav}
-                          hasImg={currentType.hasImg}
-                          index={index}
-                        ></VerbCard>
-                      ))}
-                    </AnimatePresence>
-                  </>
-                ) : (
-                  ""
-                )}
+                {/* 1 */}
               </>
             )}
           </>
