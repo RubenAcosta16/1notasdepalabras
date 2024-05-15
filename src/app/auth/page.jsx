@@ -93,19 +93,16 @@ const Page = ({ pageAction = "register" }) => {
 
           <div className="mt-[20px] ">
             <p className="mb-[10px] text-normal-secondary">Or continue with:</p>
-            <SocialButton
-              action="google"
-              buttonCode={
-                <div className="flex flex-row items-center px-8 py-2 border-2 border-zinc-800 rounded-lg bg-white hover:bg-zinc-100 text-black">
-                  <img
-                    src="https://cdn.iconscout.com/icon/free/png-256/free-google-1772223-1507807.png"
-                    alt=""
-                    className="w-[18px] h-[18px] mr-[10px]"
-                  />
-                  Login with Google
-                </div>
-              }
-            ></SocialButton>
+            <SocialButton action="google">
+              <div className="flex flex-row items-center px-8 py-2 border-2 border-zinc-800 rounded-lg bg-white hover:bg-zinc-100 text-black">
+                <img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-google-1772223-1507807.png"
+                  alt=""
+                  className="w-[18px] h-[18px] mr-[10px]"
+                />
+                Login with Google
+              </div>
+            </SocialButton>
           </div>
         </div>
       </div>
@@ -119,7 +116,6 @@ const Page = ({ pageAction = "register" }) => {
           <clipPath id="a">
             <path
               fill="currentColor"
-              
               d="M732 597q36 97-41 175.5t-170.5 16Q427 726 357.5 690t-44-113q25.5-77-20-168.5T334 285q86-32 192-111.5t199 8q93 87.5 32 203T732 597Z"
             />
           </clipPath>
@@ -133,9 +129,11 @@ const Page = ({ pageAction = "register" }) => {
         </g>
       </svg>
 
-
-
-      <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" className="w-[350px] h-[350px] absolute top-[50px] right-[-170px] z-10">
+      <svg
+        viewBox="0 0 1000 1000"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-[350px] h-[350px] absolute top-[50px] right-[-170px] z-10"
+      >
         <defs>
           <clipPath id="a">
             <path
