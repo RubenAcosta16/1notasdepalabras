@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 
-import clsx from 'clsx'
+import clsx from "clsx";
 
 import { Input, Button, Skeleton } from "@nextui-org/react";
 import { CiImageOn } from "react-icons/ci";
@@ -21,7 +21,10 @@ import { useForm } from "react-hook-form";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 
-import {useTitle} from 'react-use';
+import { useTitle } from "react-use";
+
+import { ToastContainer } from "react-toastify";
+import toast from "@/actions/toast/toast";
 
 const noto_Sans_Cham = Noto_Sans_Cham({
   subsets: ["latin"],
@@ -33,11 +36,10 @@ const quicksand = Quicksand({
 });
 
 const Page = () => {
-  useTitle("Editar perfil")
+  useTitle("Editar perfil");
   // const { data: session, status } = useSession();
 
   const { currentUser, status, setCurrentUser } = useCurrentUser();
-  // console.log(currentUser)
   const [username, setUsername] = useState("Cargando...");
 
   // const [firstImgUser, setFirstImgUser] = useState("")
@@ -46,7 +48,7 @@ const Page = () => {
 
   useEffect(() => {
     if (!currentUser) {
-      console.error("usuario no encontrado");
+      toast("Usuario no encontrado",false)
       return;
     }
     // else{
@@ -57,17 +59,12 @@ const Page = () => {
     // setSendImg
   }, [currentUser]);
 
-  // console.log(username)
 
-  //
-  //
-  // img
   const [sendImg, setSendImg] = useState(null);
   const [borrarImg, setBorrarImg] = useState(false);
 
   // para las imagenes
   const onDrop = useCallback((acceptedFiles) => {
-    // console.log(acceptedFiles[0]);
     // Do something with the files
     setSendImg(acceptedFiles[0]);
   }, []);
@@ -89,7 +86,7 @@ const Page = () => {
     setIsLoading(true);
 
     if (!currentUser) {
-      console.error("usuario no encontrado");
+      toast("Usuario no encontrado",false)
       return;
     }
     const formData = new FormData();
@@ -113,17 +110,14 @@ const Page = () => {
       );
 
       if (sendImg) {
-        // console.log("se enviara");
-        // console.log(formData);
+
         const { data: dataImg } = await axios.post(`/api/upload`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
-        // console.log(dataImg);
 
         const urlImg = { image: dataImg.url };
-        // console.log(urlImg)
 
         const { data: dataEdited } = await axios.put(
           "/api/profile/" + currentUser.id,
@@ -132,27 +126,22 @@ const Page = () => {
           }
         );
 
-        // console.log(dataEdited);
         setCurrentUser(dataEdited);
       } else {
         setCurrentUser(data1);
       }
-      // const resJSON = await res.json();
-      // // setUsername("")
-      // console.log(resJSON);
+
       if (data) {
-        console.warn("Usuario actualizado");
+        toast("Usuario actualizado")
       }
     } catch (error) {
-      console.error("error: " + error);
+      toast("error: " + error,false)
     } finally {
       setIsLoading(false);
     }
-    // console.log(resJSON.ok)
-    // console.log(resJSON.status)
+
   });
 
-  // console.log(!sendImg);
 
   return (
     <div
@@ -216,7 +205,7 @@ const Page = () => {
                       />
                     )}
                   </>
-                )} 
+                )}
               </>
             )}
 
@@ -274,7 +263,6 @@ const Page = () => {
 
         {/* esto es el boton para añadir archivos en lg */}
         <div
-          
           className={clsx(
             "mb-[10px] bg-slate-300 px-5 py-12 rounded-xl flex flex-col justify-center items-center border-2 border-dashed border-slate-500 hidden lg:block",
             {
@@ -326,6 +314,7 @@ const Page = () => {
           Guardar
         </Button>
       </form>
+      <ToastContainer />
     </div>
   );
 };
