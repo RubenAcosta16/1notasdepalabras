@@ -8,7 +8,7 @@ import { useTitle } from "react-use";
 
 import { Noto_Sans_Cham, Quicksand } from "next/font/google";
 
-import Slider from "./components/Slider";
+
 
 const noto_Sans_Cham = Noto_Sans_Cham({
   subsets: ["latin"],
@@ -69,7 +69,7 @@ const Page = ({ params }) => {
   }
   //   console.log(currentUser.id)
 
-  useTitle(currentType.name);
+  // useTitle(currentType.name);
 
   return (
     // <Slider></Slider>
