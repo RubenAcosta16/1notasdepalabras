@@ -59,8 +59,8 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
   ]);
 
   useEffect(() => {
-    return () => {
-      if (status == "authenticated") {
+  
+      if (status === "authenticated") {
         setNavItems([
           {
             name: (
@@ -129,7 +129,7 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
           }
         ]);
       }
-    };
+
   }, [status]);
 
   const { width, height } = useWindowSize();
