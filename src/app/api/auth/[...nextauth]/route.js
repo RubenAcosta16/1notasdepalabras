@@ -151,7 +151,7 @@ const authOptions = {
   pages: {
     signIn: "/auth/login",
   },
-  debug: process.env.NODE_ENV === "development",
+  debug: process.env.NODE_ENV === "production",
   session: {
     strategy: "jwt",
   },
