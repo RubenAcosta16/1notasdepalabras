@@ -43,7 +43,7 @@ const Page = ({ pageAction = "register" }) => {
     <div
       className={`${quicksand.className} font-medium relative w-full z-20 overflow-hidden  bg-main mt-[-38px]`}
     >
-      <Link href="/" className="absolute top-2 left-2  z-20 relative">
+      <Link href="/" className="absolute top-6 left-2  z-20 relative">
         <FaArrowRightLong className="inline ml-3 text-xl rotate-180" />
       </Link>
 

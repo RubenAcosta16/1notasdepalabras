@@ -13,6 +13,7 @@ const GoogleButton = ({ children, action }) => {
         // if (callback?.error) {
         //   toast.error('Invalid credentials!');
         // }
+        console.log(callback)
 
         // if (callback?.ok) {
         router.push("/dashboard");
