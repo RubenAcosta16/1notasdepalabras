@@ -21,7 +21,7 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
   const { status } = useSession();
   const { currentUser } = useCurrentUser();
 
-  console.log(status)
+  // console.log(status)
 
   const itemLi =
     " hover:bg-slate-200 dark:hover:bg-slate-600 flex-auto hover:text-pink-600";

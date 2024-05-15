@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -14,7 +14,7 @@ const GoogleButton = ({ children, action }) => {
         // if (callback?.error) {
         //   toast.error('Invalid credentials!');
         // }
-        console.log(callback)
+        console.log(callback);
 
         // if (callback?.ok) {
         router.push("/dashboard");
@@ -29,7 +29,12 @@ const GoogleButton = ({ children, action }) => {
   }
 
   return (
-    <button onClick={socialSignIn} className="hover:scale-95">
+    <button
+      onClick={() => {
+        socialSignIn();
+      }}
+      className="hover:scale-95"
+    >
       {children}
     </button>
   );
