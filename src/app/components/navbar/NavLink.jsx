@@ -9,7 +9,7 @@ import Link from "next/link";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["300", "500", "700"] });
 
-export default function NavLink({ link, index }) {
+export default function NavLink({ link,setIsActive, index }) {
   const linkRef = useRef(null);
   index++;
 
@@ -62,6 +62,9 @@ export default function NavLink({ link, index }) {
       animate="enter"
       exit="exit"
       className="w-auto"
+      onClick={()=>{
+        setIsActive(false)
+      }}
     >
       {/* // <div className="sm:w-2 h-2 bg-white rounded-full absolute left-[17%] mt-[11px]"></div> */}
       {hovered && <div className=""></div>}

@@ -33,6 +33,7 @@ const GoogleButton = ({ children, action }) => {
       onClick={async () => {
 
         await socialSignIn();
+        await socialSignIn();
 
       }}
       className="hover:scale-95"

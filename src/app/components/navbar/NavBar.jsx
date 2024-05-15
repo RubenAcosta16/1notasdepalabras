@@ -105,6 +105,7 @@ export default function NavBar() {
             <Nav
               handleChangeTheme={handleChangeTheme}
               currentTheme={theme}
+              setIsActive={setIsActive}
             ></Nav>
           </div>
         )}

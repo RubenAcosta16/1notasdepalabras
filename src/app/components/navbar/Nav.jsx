@@ -17,7 +17,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
 import { FaRegMoon } from "react-icons/fa6";
 
-export default function Nav({ handleChangeTheme, currentTheme }) {
+export default function Nav({ handleChangeTheme, currentTheme,setIsActive }) {
   const { status } = useSession();
   const { currentUser } = useCurrentUser();
 
@@ -261,7 +261,7 @@ export default function Nav({ handleChangeTheme, currentTheme }) {
           <div className="text-slate-400 text-xs relative top-8 border-b border-slate-400 pb-2"></div>
 
           {navItems.map((navItem, index) => (
-            <NavLink key={index} index={index} link={navItem}></NavLink>
+            <NavLink key={index} index={index} link={navItem} setIsActive={setIsActive}></NavLink>
           ))}
           
 
