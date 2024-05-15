@@ -21,7 +21,7 @@ const GoogleButton = ({action,buttonCode}) =>
     }).catch((error) => {
       console.log('went an error')
       console.error(error);
-      router.push("/auth/login");
+      // router.push("/auth/login");
   });
     // .finally(() => setIsLoading(false));
   }
