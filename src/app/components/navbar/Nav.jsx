@@ -161,7 +161,7 @@ export default function Nav({ handleChangeTheme, currentTheme,setIsActive }) {
         { duration: 0.4, ease: [0.76, 0, 0.24, 1] }
       );
     }
-
+ 
     // console.log("si jalaz")
   }
 

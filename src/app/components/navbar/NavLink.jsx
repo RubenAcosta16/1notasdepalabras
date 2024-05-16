@@ -11,7 +11,7 @@ const poppins = Poppins({ subsets: ["latin"], weight: ["300", "500", "700"] });
 
 export default function NavLink({ link,setIsActive, index }) {
   const linkRef = useRef(null);
-  index++;
+  index++; 
 
   const linkSlide = {
     initial: { x: 10, opacity: 0 },

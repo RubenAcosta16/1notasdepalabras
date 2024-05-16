@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
-import { useClickAway } from "react-use";
+import { useClickAway, useWindowSize } from "react-use";
 
 import { AnimatePresence } from "framer-motion";
 
@@ -28,6 +28,8 @@ export default function NavBar() {
 
   const [theme, setTheme] = useState("light");
 
+  const { width } = useWindowSize();
+
   useEffect(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       setTheme("dark");
@@ -51,8 +53,10 @@ export default function NavBar() {
 
   const navRef = useRef(null);
   useClickAway(navRef, () => {
-    // console.log("OUTSIDE CLICKED");
-    setIsActive(!isActive);
+    // esto causaba que no funcione bien el click en mobile
+    if (width >= 1024) {
+      setIsActive(!isActive);
+    }
   });
 
   const shadow = { textShadow: "1px 1px 3px rgba(0,0,0,0.7)" };
@@ -64,7 +68,7 @@ export default function NavBar() {
       {/* icon button */}
       <Link
         href="/home"
-        className="text-[16px] flex my-auto ml-[8px] lg:l-[70px]  tracking-tighter relative"
+        className="text-[16px] flex my-auto ml-[8px] lg:l-[70px] tracking-tighter relative"
         style={shadow}
       >
         Notas de palabras
@@ -101,7 +105,6 @@ export default function NavBar() {
       <AnimatePresence>
         {isActive && (
           <div ref={navRef}>
-
             <Nav
               handleChangeTheme={handleChangeTheme}
               currentTheme={theme}
