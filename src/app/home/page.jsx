@@ -130,7 +130,7 @@ const Page = () => {
               }
             )}
           >
-            Listas creadas
+            Ver listas
           </button>
 
           <div className="w-[1px] h-[25px] bg-zinc-500 rounded-xl mt-[5px]" />

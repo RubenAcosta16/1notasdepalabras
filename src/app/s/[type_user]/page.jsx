@@ -69,6 +69,8 @@ const Page = ({ params }) => {
   }
   //   console.log(currentUser.id)
 
+
+  // arreglar esto
   // useTitle(currentType.name);
 
   return (

@@ -145,7 +145,7 @@ const Page = () => {
             </p>
 
             <Button
-              className="mt-[13px] bg-zinc-950 rounded-full text-[14px] font-semibold text-white"
+              className="mt-[13px] bg-zinc-950 rounded-full w-[103px] text-[14px] font-semibold text-white"
               onClick={() => setNavbarState("createVerb")}
             >
               Crear
@@ -166,7 +166,7 @@ const Page = () => {
             </p>
 
             <Button
-              className="mt-[13px] py-2 px-8 bg-zinc-950 rounded-full text-[14px] font-semibold text-white"
+              className="mt-[13px] py-2 px-8 bg-zinc-950 rounded-full w-[103px] text-[14px] font-semibold text-white"
               onClick={() => setNavbarState("editVerbs")}
             >
               Editar
