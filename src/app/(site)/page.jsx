@@ -7,6 +7,8 @@ import Link from "next/link";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaMagic, FaBook } from "react-icons/fa";
 import { CiBoxList } from "react-icons/ci";
+
+import RandomVerbs from "./components/RandomVerbs";
 // Rubik
 // Quicksand
 // Overpass
@@ -30,18 +32,18 @@ const Page = () => {
   const demoList = [
     {
       icon: <CiBoxList className={`${iconStyle} `} />,
-      text: "Lista de palabras personalizable",
-      desc: "Description",
+      text: "Lista de palabras",
+      desc: "Puedes usar listas ya hechas o crear las tuyas",
     },
     {
       icon: <FaMagic className={`${iconStyle}`} />,
       text: "Editor de palabras",
-      desc: "Description",
+      desc: "Las palabras tambien son pesonalizables",
     },
     {
       icon: <FaBook className={`${iconStyle}`} />,
       text: "Modos para aprender",
-      desc: "Description",
+      desc: "Hay varios modos para facilitar todo",
     },
   ];
 
@@ -77,10 +79,10 @@ const Page = () => {
         </Link>
       </div>
 
-      <ul className="flex flex-col gap-5 mx-5 relative z-10 m-16">
+      <ul className="flex flex-col gap-5 mx-5  relative z-10 m-16">
         {demoList.map((demo) => (
           <li
-            className="bg-squaresList rounded-md shadow shadow-md font-semibold p-3 flex flex-col gap-3 text-black"
+            className="bg-squaresList w-full lg:mx-auto lg:w-[70%] rounded-md shadow shadow-md font-semibold p-3 flex flex-col gap-3 text-black"
             key={demo.text}
           >
             <div className="flex flex-row">
@@ -95,6 +97,12 @@ const Page = () => {
           </li>
         ))}
       </ul>
+
+      
+
+      <div>
+        <RandomVerbs></RandomVerbs>
+      </div>
 
       {/* capturas o una demostracion mas */}
 
@@ -142,7 +150,11 @@ const Page = () => {
         className="w-[350px] h-[350px] absolute top-[950px] right-[-170px] bg-none"
       ></object> */}
 
-      <svg className="w-[350px] h-[350px] absolute top-[950px] right-[-170px] bg-main" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        className="w-[350px] h-[350px] absolute top-[950px] right-[-170px] bg-main"
+        viewBox="0 0 1000 1000"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <defs>
           <clipPath id="a">
             <path

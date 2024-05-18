@@ -1,10 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useQuery, useQueryClient } from "react-query";
+import { useState } from "react";
+
 import clsx from "clsx";
-import { MagicMotion } from "react-magic-motion";
-import { useAnimate, motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 import useVerbs from "@/hooks/useVerbs";
 import useGroupVerbs from "@/hooks/useGroupVerbs";
@@ -49,8 +47,7 @@ const ShowVerbs = ({ currentType }) => {
   function handleRamdomVerbs() {
     // Función de comparación aleatoria para el método sort()
 
-    clearTimeout(timeoutId);
-    setShuffle(true);
+
 
     const randomCompare = () => Math.random() - 0.5;
 
@@ -60,9 +57,6 @@ const ShowVerbs = ({ currentType }) => {
     arrRandom.sort(randomCompare);
     setVerbsRandom([...arrRandom]);
 
-    timeoutId = setTimeout(() => {
-      setShuffle(false);
-    }, 3000);
   }
 
   const verbsGrouped = useGroupVerbs(verbs);
@@ -186,7 +180,7 @@ const ShowVerbs = ({ currentType }) => {
                                   hasImg={currentType.hasImg}
                                   index={index}
                                 ></VerbCard>
-                              </>
+                              </> 
                             ))}
                           </>
                         )}
