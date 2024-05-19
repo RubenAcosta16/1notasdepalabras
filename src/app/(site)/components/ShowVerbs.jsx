@@ -96,11 +96,13 @@ const ShowVerbs = () => {
       <div className="flex flex-row-reverse w-full lg:mx-auto lg:w-[70%]">
         <ul className="shadow shadow-md py-[20px] w-full  rounded-lg pt-[30px] px-[20px]  bg-squaresList flex flex-col gap-1 lg:gap-0">
           {verbsRandom.map((verb, index) => (
-            <EditVerbs
+            <li key={verb.name}>
+              <EditVerbs
               verb={verb}
               refetch={() => {}}
               withImg={false}
             ></EditVerbs>
+            </li>
           ))}
         </ul>
         <div
