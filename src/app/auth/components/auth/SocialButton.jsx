@@ -17,7 +17,7 @@ const GoogleButton = ({ children, action }) => {
         console.log(callback);
 
         // if (callback?.ok) {
-        router.push("/dashboard");
+        router.push("/home");
         // }
       })
       .catch((error) => {
