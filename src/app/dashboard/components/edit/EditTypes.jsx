@@ -24,11 +24,9 @@ const EditTypes = ({ userId, type, setNavbarTypes, navbarTypes }) => {
 
   //   const [group, setGroup] = useState(verb.group)
 
-  function handleEdit() {}
-
   return (
     <li
-      className={clsx(`relative flex flex-col w-full  gap-[15px] rounded-xl`, {
+      className={clsx(`relative flex flex-col w-full gap-[15px] max-w-[218px] mx-auto rounded-xl`, {
         "bg-zinc-100 dark:bg-zinc-600": currentType === name,
         "bg-squaresList": currentType !== name,
       })}

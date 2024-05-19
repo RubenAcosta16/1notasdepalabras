@@ -8,7 +8,9 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaMagic, FaBook } from "react-icons/fa";
 import { CiBoxList } from "react-icons/ci";
 
-import RandomVerbs from "./components/RandomVerbs";
+import useDarkMode from "@/hooks/useDarkMode";
+
+import ShowVerbs from "./components/ShowVerbs";
 // Rubik
 // Quicksand
 // Overpass
@@ -26,6 +28,11 @@ const quicksand = Quicksand({
 
 const Page = () => {
   const { data: session, status } = useSession();
+
+  const { currentMode } = useDarkMode();
+
+  const backgroundImageUrl = "/_55ff4a84-7f96-459c-b05c-c997799fe186.jpg";
+  // const [styleImg, setStyleImg] = useState({});
 
   const iconStyle = "relative  size-[22px]";
 
@@ -47,21 +54,59 @@ const Page = () => {
     },
   ];
 
+
+
+
+  // if (currentMode == "light") {
+  //   setStyleImg({
+  //     backgroundSize: "cover", // Para que la imagen cubra todo el contenedor
+  //     backgroundImage: `linear-gradient(to bottom, rgba(241 245 249, 0.1), rgba(241 245 249, 1)), url(${backgroundImageUrl})`,
+  //     backgroundPosition: "center", // Para centrar la imagen
+  //     width: "100%",
+  //     height: "600px", // Ajusta esto según sea necesario
+  //   });
+  // } else {
+  //   setStyleImg({
+  //     backgroundSize: "cover", // Para que la imagen cubra todo el contenedor
+  //     backgroundImage: `linear-gradient(to bottom, rgba(34, 40, 49, 0.2), rgba(34, 40, 49, 1)), url(${backgroundImageUrl})`,
+  //     backgroundPosition: "center", // Para centrar la imagen
+  //     width: "100%",
+  //     height: "600px", // Ajusta esto según sea necesario
+  //   });
+  // }
+
+  const shadow = { textShadow: "1px 1px 3px rgba(0,0,0,0.7)" };
+
   return (
-    <div className="relative w-full h-[1000vh] overflow-hidden">
-      <div className="z-10 mt-14 px-4 relative flex flex-col gap-[50px]">
-        <div>
-          <h1
-            className={`${noto_Sans_Cham.className} text-[40px] font-bold text-center mx-3 tracking-tighter text-normal`}
-          >
-            Aprende palabras de forma{" "}
-            <span className="text-pink-600">sencilla</span>
-          </h1>
-        </div>
+    <div className="relative w-full h-auto overflow-hidden mt-[-48px] pb-[40px]">
+      <div
+        style={currentMode !== "dark"?{
+          backgroundSize: "cover", // Para que la imagen cubra todo el contenedor
+          backgroundImage: `linear-gradient(to bottom, rgba(241, 245, 249, 0), rgba(241, 245, 249, 1)), url(${backgroundImageUrl})`,
+          backgroundPosition: "center", // Para centrar la imagen
+          width: "100%",
+          height: "600px", // Ajusta esto según sea necesario
+        }:{
+          backgroundSize: "cover", // Para que la imagen cubra todo el contenedor
+          backgroundImage: `linear-gradient(to bottom, rgba(34, 40, 49, 0.2), rgba(34, 40, 49, 1)), url(${backgroundImageUrl})`,
+          backgroundPosition: "center", // Para centrar la imagen
+          width: "100%",
+          height: "600px", // Ajusta esto según sea necesario
+        }}
+        className="z-10 px-4 relative flex flex-col gap-[50px]"
+      >
+        <h1
+          // style={shadow}
+          className={`${noto_Sans_Cham.className} mt-[194px] text-[40px] font-bold text-center mx-3 tracking-tighter text-normal`}
+        >
+          Aprende palabras de forma{" "}
+          <span className="text-pink-600">sencilla</span>
+        </h1>
 
         {/* aqui ira una imagen */}
 
         <div
+          style={shadow}
           className={`${quicksand.className} text-zinc-800 text-[18px] font-medium text-center mx-5 text-normal`}
         >
           Esta es una herramienta que te puede ayudar a{" "}
@@ -98,11 +143,14 @@ const Page = () => {
         ))}
       </ul>
 
-      
-
       <div>
-        <RandomVerbs></RandomVerbs>
+        <ShowVerbs></ShowVerbs>
       </div>
+
+
+      {/* <div className="text-center mt-[50px]">
+        Solamente tienes que crear una <span className="text-rose-600">cuenta</span>.
+      </div> */}
 
       {/* capturas o una demostracion mas */}
 
@@ -113,7 +161,7 @@ const Page = () => {
       ></object> */}
 
       <svg
-        className="w-[350px] h-[350px] absolute top-[460px] left-[-170px] bg-main"
+        className="w-[350px] h-[350px] absolute top-[590px] left-[-170px] bg-main"
         viewBox="0 0 1000 1000"
         xmlns="http://www.w3.org/2000/svg"
       >

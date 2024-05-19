@@ -18,7 +18,7 @@
 
 .text-normal{
     @apply text-black dark:text-white;
-}
+} 
 
 .text-normal-inverse{
     @apply text-white dark:text-black;

@@ -24,11 +24,11 @@ const MyImg = ({ name, img, height, types = false }) => {
         <>
           {types ? (
             <div
-              className={`h-[125px] mx-auto w-[220px] lg:w-full bg-zinc-300 rounded-xl`}
+              className={`h-[125px] mx-auto w-[220px] lg:w-full  bg-zinc-300 rounded-xl`}
             ></div>
           ) : (
             <div
-              className={`h-[125px] mx-auto w-[220px] lg:w-full bg-zinc-300 rounded-xl`}
+              className={`h-[125px] mx-auto w-[220px]  bg-zinc-300 rounded-xl`}
             ></div>
           )}
         </>
