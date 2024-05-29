@@ -155,7 +155,7 @@ const ShowVerbs = ({ currentType }) => {
                 <LoadingCard hasImg={currentType.hasImg}></LoadingCard>
               </div>
             )}
-          </>
+          </> 
         ) : (
           <>
             {/* <LoadingCard hasImg={currentType.hasImg}></LoadingCard> */}

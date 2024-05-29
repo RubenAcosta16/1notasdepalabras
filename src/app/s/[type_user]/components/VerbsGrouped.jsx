@@ -10,9 +10,9 @@ const VerbsGrouped = ({ verbGrouped, functionNav,hasImg }) => {
       {functionNav == "Normal" || functionNav == "Significados" ? (
         <>
           <p className="text-[20px] text-normal font-bold">
-            Grupo: {verbGrouped[0].group ? verbGrouped[0].group : "Sin grupo"}
+            Grupo: <span className="font-normal">{verbGrouped[0].group ? verbGrouped[0].group : "Sin grupo"}</span>
           </p>
-          <ul className="flex flex-col gap-[5px] border-l border-zinc-600 ml-[6px] mt-[10px]">
+          <ul className="flex flex-col gap-[15px] border-l border-zinc-600 ml-[6px] mt-[10px]">
             {verbGrouped.map((verb,index) => (
               <VerbCard
                 key={verb.id}
@@ -22,7 +22,7 @@ const VerbsGrouped = ({ verbGrouped, functionNav,hasImg }) => {
                 index={index}
               ></VerbCard>
             ))}
-          </ul>
+          </ul> 
         </>
       ) : (
         ""
